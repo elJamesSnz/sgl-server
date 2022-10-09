@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-//const users = require("./routes/usersRoutes");
+const users = require("./routes/usersRoutes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,6 +12,6 @@ const hello_routes = require("./routes/hello");
 app.use("/api", hello_routes);
 
 //rutas
-//users(app);
+users(app);
 
 module.exports = app;
