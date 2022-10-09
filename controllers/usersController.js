@@ -62,7 +62,7 @@ module.exports = {
           keys.secretOrKey,
           {
             //Duración de una hora
-            //expiresIn: 60 * 60 * 24,
+            expiresIn: 60 * 60 * 24,
           }
         );
         const data = {
@@ -71,7 +71,7 @@ module.exports = {
           lastname: rUser.lastname,
           email: rUser.email,
           phone: rUser.phone,
-          session_token: `JWT ${token}`,
+          session_token: `${token}`,
         };
 
         return res.status(201).json({
