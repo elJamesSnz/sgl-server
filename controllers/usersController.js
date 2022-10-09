@@ -45,6 +45,7 @@ module.exports = {
       //Se busca el usuario por el email recibido
       const rUser = await User.FindByEmail(email);
       //si no hay usuario con ese email
+
       if (!rUser) {
         return res.status(401).json({
           success: false,

@@ -47,7 +47,9 @@ User.FindByEmail = (email) => {
         password,
         session_token,
       FROM
-        users;    
+        users
+      WHERE
+        email = $1
     `;
 
   return db.oneOrNone(sql, email);
