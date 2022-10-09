@@ -40,12 +40,12 @@ User.findById = (id, callback) => {
 User.FindByEmail = (email) => {
   const sql = `
       SELECT
-        U.id,
-        U.email,
-        U.name,
-        U.lastname,
-        U.password,
-        U.session_token,
+        id,
+        email,
+        name,
+        lastname,
+        password,
+        session_token,
       FROM
         users;    
     `;

@@ -70,7 +70,6 @@ module.exports = {
           lastname: rUser.lastname,
           email: rUser.email,
           phone: rUser.phone,
-          image: rUser.image,
           session_token: `JWT ${token}`,
         };
 
