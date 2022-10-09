@@ -39,18 +39,18 @@ User.findById = (id, callback) => {
 //Sentencia SQL que recupera un único usuario por email
 User.FindByEmail = (email) => {
   const sql = `
-      SELECT
-        id,
-        email,
-        name,
-        lastname,
-        password,
-        session_token,
-      FROM
-        users
-      WHERE
-        email = $1
-    `;
+    SELECT
+      id,
+      email,
+      name,
+      lastname,
+      password,
+      session_token
+    FROM
+      users
+    WHERE
+      email = $1
+  `;
 
   return db.oneOrNone(sql, email);
 };
