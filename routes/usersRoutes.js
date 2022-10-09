@@ -1,5 +1,5 @@
 //se accede al controlador
-const UsersController = require("../controllers/usersControllers");
+const UsersController = require("../controllers/usersController");
 
 module.exports = (app) => {
   //GET para traer datos
