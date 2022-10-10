@@ -2,6 +2,7 @@
 const db = require("../config/config");
 //recuperar dependencia para encriptar las contraseñas
 const crypto = require("crypto");
+const { default: jwtDecode } = require("jwt-decode");
 
 const User = {};
 
@@ -17,7 +18,7 @@ User.getAll = () => {
 };
 
 //sentencia SQL que recupera un único usuario por I_D
-User.findById = (id, callback) => {
+User.findById = (id) => {
   const sql = `
     SELECT
       id,
@@ -31,9 +32,7 @@ User.findById = (id, callback) => {
     WHERE
         id = $1`;
 
-  return db.oneOrNone(sql, id).then((user) => {
-    callback(null, user);
-  });
+  return db.oneOrNone(sql, id);
 };
 
 //Sentencia SQL que recupera un único usuario por email
