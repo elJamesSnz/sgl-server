@@ -65,6 +65,7 @@ module.exports = {
             expiresIn: 60 * 60 * 24,
           }
         );
+
         const data = {
           id: rUser.id,
           name: rUser.name,
@@ -92,6 +93,32 @@ module.exports = {
         message: "Error al hacer login",
         error: error,
       });
+    }
+  },
+  async getMe(req, res, next) {
+    try {
+      const id = req.body.id;
+      const data = await User.findById(id);
+      console.log(`Usuario: ${data}`);
+      return res.status(201).json(data);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener el info del usuario\n" + error,
+      });
+    }
+  },
+
+  //Formato de token
+  //Authorization Bearer <Access_Token>
+
+  verifyToken(req, res, next) {
+    const bearerHeader = req.headers["authorization"];
+    //no es undefined
+    if (typeof bearerHeader !== "undefined") {
+    } else {
+      res.sendStatus(403);
     }
   },
 };
