@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const users = require("./routes/usersRoutes");
+const User = require("../models/user");
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -45,7 +46,13 @@ function verifyToken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
   //no es undefined
   if (typeof bearerHeader !== "undefined") {
-    //
+    //split @ bearer
+    const bearer = bearerHeader.spli(" ");
+    //token
+    const bearerToken = bearer[1];
+    //set token
+    req.token = bearerToken;
+    next();
   } else {
     res.sendStatus(403);
   }
