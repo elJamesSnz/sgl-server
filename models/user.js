@@ -32,7 +32,7 @@ User.findById = (id) => {
     WHERE
         id = $1`;
 
-  db.oneOrNone(sql, id).then((user) => {
+  return db.oneOrNone(sql, id).then((user) => {
     return JSON.stringify(user);
   });
 };
