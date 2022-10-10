@@ -32,10 +32,8 @@ User.findById = (id) => {
     WHERE
         id = $1`;
 
-  db.any(sql, id).then((user) => {
-    return data.map((user) => {
-      // return a new element
-    });
+  return db.oneOrNone(sql, id).then((user) => {
+    return JSON.stringify(user);
   });
 };
 
