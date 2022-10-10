@@ -15,9 +15,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // Cargar rutas
 const hello_routes = require("./routes/hello");
 
@@ -48,8 +45,7 @@ app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
     res = await client.query(
       "select * from users where id =" + req.query.idUser
     );
-    const result = res.rows[0];
-    console.log(result);
+    result = res.rows[0];
     return result;
   } catch (error) {
     console.log(error);
@@ -71,5 +67,8 @@ function verifyToken(req, res, next) {
     res.sendStatus(403);
   }
 }
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 module.exports = app;
