@@ -32,7 +32,7 @@ users(app);
 //GET para traer la informaciòn de un usuario
 app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
   try {
-    const client = Client({
+    const client = new Client({
       user: process.env.dbuser,
       host: process.env.host,
       database: process.env.db,
