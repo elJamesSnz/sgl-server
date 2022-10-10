@@ -32,8 +32,8 @@ User.findById = (id) => {
     WHERE
         id = $1`;
 
-  return db.oneOrNone(sql, id).then((user) => {
-    console.log(JSON.stringify(user));
+  db.oneOrNone(sql, id).then((user) => {
+    return JSON.stringify(user);
   });
 };
 
