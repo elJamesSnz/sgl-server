@@ -49,7 +49,7 @@ app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
       "select * from users where id =" + req.query.idUser
     );
     console.log(res.rows[0]);
-    const result = JSON.stringify(res.rows[0]);
+    const result = res.rows[0];
     await client.end();
     return result;
   } catch (error) {
