@@ -27,21 +27,17 @@ users(app);
 
 //GET para traer la informaciòn de un usuario
 app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
-  if (!verifyToken(req, res)) {
-    res.sendStatus(403);
-  } else {
-    try {
-      const id = req.body.id;
-      const data = await User.findById(id);
-      console.log(`Usuario: ${data}`);
-      return res.status(201).json(data);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-      return res.status(501).json({
-        success: false,
-        message: "Error al obtener el info del usuario\n" + error,
-      });
-    }
+  try {
+    const id = req.body.id;
+    const data = await User.findById(id);
+    console.log(`Usuario: ${data}`);
+    return res.status(201).json(data);
+  } catch (error) {
+    console.log(`Error: ${error}`);
+    return res.status(501).json({
+      success: false,
+      message: "Error al obtener el info del usuario\n" + error,
+    });
   }
 });
 
@@ -49,9 +45,9 @@ function verifyToken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
   //no es undefined
   if (typeof bearerHeader !== "undefined") {
-    return true;
+    //
   } else {
-    return false;
+    res.sendStatus(403);
   }
 }
 
