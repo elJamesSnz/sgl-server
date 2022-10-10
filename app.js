@@ -31,8 +31,7 @@ users(app);
 //GET para traer la informaciòn de un usuario
 app.get("/api/users/getMe", verifyToken, (req, res, next) => {
   try {
-    console.log(req.query.idUser);
-    const data = User.findById(idUser);
+    const data = User.findById(req.query.idUser);
     console.log(`Usuario: ${data}`);
     return res.status(201).json(data);
   } catch (error) {
