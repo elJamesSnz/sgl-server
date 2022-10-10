@@ -45,12 +45,10 @@ app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
 
     await client.connect();
 
-    res = await client.query(
+    const response = await client.query(
       "select * from users where id =" + req.query.idUser
     );
-    console.log(res.rows[0]);
-    const result = res.rows[0];
-    await client.end();
+    const result = response.rows[0];
     return result;
   } catch (error) {
     console.log(error);
