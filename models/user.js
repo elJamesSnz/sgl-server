@@ -32,7 +32,9 @@ User.findById = (id) => {
     WHERE
         id = $1`;
 
-  return db.oneOrNone(sql, id);
+  return db.oneOrNone(sql, id).then((user) => {
+    return JSON.stringify(user);
+  });
 };
 
 //Sentencia SQL que recupera un único usuario por email
