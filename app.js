@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const users = require("./routes/usersRoutes");
 const User = require("./models/user");
+const { Client } = require("pg");
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -29,17 +30,31 @@ users(app);
 /* RUTAS PROTEGIDAS */
 
 //GET para traer la informaciòn de un usuario
-app.get("/api/users/getMe", verifyToken, (req, res, next) => {
+app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
   try {
-    const data = User.findById(req.query.idUser);
-    console.log(`Usuario: ${data}`);
-    return res.status(201).json(data);
-  } catch (error) {
-    console.log(`Error: ${error}`);
-    return res.status(501).json({
-      success: false,
-      message: "Error al obtener el info del usuario\n" + error,
+    const client = Client({
+      user: process.env.dbuser,
+      host: process.env.host,
+      database: process.env.db,
+      password: process.env.dbpw,
+      port: process.env.port,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     });
+
+    await client.connect();
+
+    const res = await client.query(
+      "select * from users where id =" + req.query.idUser
+    );
+    console.log(res);
+    const result = res.rows;
+    await client.end();
+
+    return result;
+  } catch (error) {
+    console.log(error);
   }
 });
 
