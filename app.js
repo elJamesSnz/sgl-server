@@ -17,6 +17,7 @@ app.use(function (req, res, next) {
 
 // Cargar rutas
 const hello_routes = require("./routes/hello");
+const { result } = require("./config/config");
 
 // Rutas base
 app.use("/api", hello_routes);
@@ -42,11 +43,15 @@ app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
 
     await client.connect();
 
-    res = await client.query(
+    result = await client.query(
       "select * from users where id =" + req.query.idUser
     );
-    result = res.rows[0];
-    return result;
+    result = result .rows[0];
+    return res.status(201).json({
+      success: true,
+      message: "Verificado",
+      data: result,
+    });
   } catch (error) {
     console.log(error);
   }
