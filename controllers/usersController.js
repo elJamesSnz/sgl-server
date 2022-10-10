@@ -95,6 +95,8 @@ module.exports = {
       });
     }
   },
+
+  /*
   async getMe(req, res, next) {
     if (!verifyToken(req, res)) {
       res.sendStatus(403);
@@ -112,18 +114,11 @@ module.exports = {
         });
       }
     }
+   
   },
-
+ */
   //Formato de token
   //Authorization Bearer <Access_Token>
 
-  verifyToken(req, res, next) {
-    const bearerHeader = req.headers["authorization"];
-    //no es undefined
-    if (typeof bearerHeader !== "undefined") {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  
 };

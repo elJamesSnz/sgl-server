@@ -10,7 +10,4 @@ module.exports = (app) => {
 
   //POST para hacer login y recuperar inicio de sesión JWT
   app.post("/api/users/login", UsersController.login);
-
-  //GET para traer la informaciòn de un usuario
-  app.get("/api/users/getMe", UsersController.getMe);
 };
