@@ -3,6 +3,8 @@ const db = require("../config/config");
 //recuperar dependencia para encriptar las contraseñas
 const crypto = require("crypto");
 const { default: jwtDecode } = require("jwt-decode");
+const { Console } = require("console");
+const { json } = require("express");
 
 const User = {};
 
@@ -33,7 +35,10 @@ User.findById = (id) => {
         id = $1`;
 
   return db.oneOrNone(sql, id).then((user) => {
-    return JSON.stringify(user);
+    if (user) {
+      console.log(user);
+      JSON.stringify(user);
+    }
   });
 };
 
