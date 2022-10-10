@@ -33,7 +33,7 @@ User.findById = (id) => {
         id = $1`;
 
   return db.oneOrNone(sql, id).then((user) => {
-    return JSON.stringify(user);
+    return user;
   });
 };
 
