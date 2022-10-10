@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const users = require("./routes/usersRoutes");
-const User = require("../models/user");
+const User = require("./models/user");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
