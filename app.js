@@ -48,7 +48,7 @@ function verifyToken(req, res, next) {
   //no es undefined
   if (typeof bearerHeader !== "undefined") {
     //split @ bearer
-    const bearer = bearerHeader.spli(" ");
+    const bearer = bearerHeader.split(" ");
     //token
     const bearerToken = bearer[1];
     //set token
