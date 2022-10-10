@@ -29,11 +29,9 @@ users(app);
 /* RUTAS PROTEGIDAS */
 
 //GET para traer la informaciòn de un usuario
-app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
+app.get("/api/users/getMe", verifyToken, (req, res, next) => {
   try {
-    console.log(req.token.id);
-    console.log(token.id);
-    const data = await User.findById(token.id);
+    const data = User.findById(req.token);
     console.log(`Usuario: ${data}`);
     return res.status(201).json(data);
   } catch (error) {
