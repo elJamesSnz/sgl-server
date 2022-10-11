@@ -1,5 +1,6 @@
 //se accede al controlador
 const UsersController = require("../controllers/usersController");
+const passport = require("passport");
 
 module.exports = (app) => {
   //GET para traer datos
