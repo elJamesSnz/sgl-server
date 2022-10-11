@@ -4,6 +4,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
+const users = require("./routes/usersRoutes");
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
