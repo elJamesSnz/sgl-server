@@ -2,9 +2,6 @@
 const db = require("../config/config");
 //recuperar dependencia para encriptar las contraseñas
 const crypto = require("crypto");
-const { default: jwtDecode } = require("jwt-decode");
-const { Console } = require("console");
-const { json } = require("express");
 
 const User = {};
 
@@ -19,20 +16,93 @@ User.getAll = () => {
   return db.manyOrNone(sql);
 };
 
+//Sentencoa que recupera todos la la informacion de equipos por id laboratorio
+User.getAllEquipo = (idlaboratorio) => {
+  const sql = `
+
+
+SELECT 
+  L.idlaboratorio,
+  L.nombre,
+
+json_agg(
+	json_build_object( 
+    'name',EQ.nombre,
+    'desc',EQ.descripcion,
+    'code',EQ.codigo_barras,
+    'mode',EQ.modelo,
+    'ano',EQ.ano,
+    'fallo',EQ.fallo,
+    'estado',EQ.estado,
+    'manual',EQ.manual,
+    'name_man',EQ.nombre_manual,
+    'foto',EQ."Foto_fallo",
+    'Disponible',EQ."Disponibilidad"	
+	)
+) as Equip
+	
+  FROM 
+		public.laboratorio as L
+	INNER join 
+		public.equipamiento as EQ
+	ON 
+		EQ."idLaboratorio" = L.idlaboratorio
+		
+	where L.idlaboratorio=$5
+	group by L.idlaboratorio
+
+  `;
+
+  return db.oneOrNone(sql, idlaboratorio);
+};
+
+//Sentencia Sql que solicita los laboratorios a los que tiene acceso
+User.getAllLabsPUser = (idusuario) => {
+  const sql = `
+  SELECT 
+    u.idusuario,
+    u.nombre, 
+    json_agg(
+      json_build_object( 
+        'id', RLU.id_laboratorio,
+        'name',LAB.nombre
+      )
+    ) as Labs
+      
+    FROM 
+      public.usuario as u
+      
+    INNER join 
+      public."Relacion_lab_user" as RLU
+    ON 
+      RLU.id_usuario = u.idusuario
+    INNER join 
+      public.laboratorio  as LAB
+    ON LAB.idlaboratorio = RLU.id_laboratorio
+    
+    where 
+      u.idusuario=$1
+    
+    group by u.idusuario
+    `;
+
+  return db.oneOrNone(sql, idusuario);
+};
+
 //sentencia SQL que recupera un único usuario por I_D
 User.findById = (id) => {
   const sql = `
     SELECT
-      id,
-      email,
-      name,
-      lastname,
-      password,
-      session_token
+      idusuario,
+      correo,
+      nombre,
+      contraseña,
+      session_token,
+      
     FROM
-        users
+        usuario
     WHERE
-        id = $1`;
+      idusuario = $1`;
 
   return db.oneOrNone(sql, id);
 };
