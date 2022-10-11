@@ -46,11 +46,12 @@ app.get("/api/users/getMe", verifyToken, async (req, res, next) => {
     result = await client.query(
       "select * from users where id =" + req.query.idUser
     );
-    result = result .rows[0];
+    data = result.rows[0];
+
     return res.status(201).json({
       success: true,
       message: "Verificado",
-      data: result,
+      data: data,
     });
   } catch (error) {
     console.log(error);
