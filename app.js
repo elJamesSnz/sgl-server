@@ -38,7 +38,7 @@ require("./config/passport")(passport);
 
 app.disable("x-powered-by");
 
-app.set("port", port);
+app.set("port", process.env.port);
 
 // Cargar rutas
 const hello_routes = require("./routes/hello");
