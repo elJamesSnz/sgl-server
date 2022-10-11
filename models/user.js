@@ -118,7 +118,7 @@ User.FindByEmail = (email) => {
     FROM
       usuario
     WHERE
-      email = $1
+      correo = $1
   `;
 
   return db.oneOrNone(sql, email);
