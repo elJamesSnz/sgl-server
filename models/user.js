@@ -97,8 +97,7 @@ User.findById = (id) => {
       correo,
       nombre,
       contraseña,
-      session_token,
-      
+      session_token,      
     FROM
         usuario
     WHERE
@@ -111,14 +110,13 @@ User.findById = (id) => {
 User.FindByEmail = (email) => {
   const sql = `
     SELECT
-      id,
-      email,
-      name,
-      lastname,
-      password,
+      idusuario,
+      correo,
+      nombre,
+      contraseña,
       session_token
     FROM
-      users
+      usuario
     WHERE
       email = $1
   `;
@@ -134,7 +132,7 @@ User.create = (user) => {
   user.password = pwHash;
   const sql = `
       INSERT INTO
-        users(
+        usuario(
           email,
           name,
           lastname,
