@@ -155,6 +155,7 @@ User.create = (user) => {
 //Comparar una contraseña enviada con pw encriptado en DB
 User.isPwMatched = (uPW, hash) => {
   const pwHashed = crypto.createHash("md5").update(uPW).digest("hex");
+
   if (pwHashed === hash) {
     return true;
   }

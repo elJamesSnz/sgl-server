@@ -55,7 +55,7 @@ module.exports = {
       }
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
-      if (User.isPwMatched(password, rUser.password)) {
+      if (User.isPwMatched(password, rUser.contraseña)) {
         const token = jwt.sign(
           { id: rUser.idusuario, email: rUser.correo },
           //Token de sesión se le puede asignar expiración
