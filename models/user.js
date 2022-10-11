@@ -11,7 +11,7 @@ User.getAll = () => {
     SELECT 
     * 
     FROM 
-    users`;
+    usuario`;
 
   return db.manyOrNone(sql);
 };
