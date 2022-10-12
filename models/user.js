@@ -71,7 +71,7 @@ User.getAllLabsPUser = (idusuario) => {
     FROM 
       public.usuario as u
     INNER join 
-      public.'Relacion_lab_user' as RLU
+      public."Relacion_lab_user" as RLU
     ON 
       RLU.id_usuario = u.idusuario
     INNER join 
