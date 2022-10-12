@@ -95,8 +95,8 @@ module.exports = {
   },
   async findById(req, res, next) {
     try {
-      const id = req.query.id;
-      const data = await User.findById(id);
+      const id = req.query.idUser;
+      const data = await User.getAllLabsPUser(id);
       console.log(`Usuario: ${data}`);
       return res.status(201).json(data);
     } catch (error) {
