@@ -6,7 +6,11 @@ module.exports = (app) => {
   //GET para traer datos
   app.get("/api/users/getAll", UsersController.getAll);
 
+  //GET para traer profesores x laboratorio
   app.get("/api/users/getMe", UsersController.findById);
+
+  //GET para traer equipamiento x laboratorio
+  app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
 
   /*
   app.get(

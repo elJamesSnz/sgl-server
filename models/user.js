@@ -48,7 +48,7 @@ json_agg(
 	ON 
 		EQ."idLaboratorio" = L.idlaboratorio
 		
-	where L.idlaboratorio=$5
+	where L.idlaboratorio=$1
 	group by L.idlaboratorio
 
   `;
@@ -145,6 +145,43 @@ User.create = (user) => {
     user.password,
     new Date(),
     new Date(),
+  ]);
+};
+
+User.PostEquipo = (equipamiento) => {
+  const sql = `
+    INSERT INTO
+      equipamiento(
+            
+            nombre,
+            descripcion,
+            codigo_barras,
+            modelo,
+            ano,
+            fallo,
+            estado,
+            manual,
+            nombre_manual,
+            idLaboratorio,
+            Foto_fallo,
+            Disponibilidad
+        )
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING idequipo
+    `;
+  return db.oneOrNone(sql, [
+    equipamiento.idequipo,
+    equipamiento.nombre,
+    equipamiento.descripcion,
+    equipamiento.codigo_barras,
+    equipamiento.modelo,
+    equipamiento.ano,
+    equipamiento.fallo,
+    equipamiento.estado,
+    equipamiento.manual,
+    equipamiento.nombre_manual,
+    equipamiento.idLaboratorio,
+    equipamiento.Foto_fallo,
+    equipamiento.Disponibilidad,
   ]);
 };
 

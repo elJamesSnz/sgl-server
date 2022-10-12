@@ -111,4 +111,22 @@ module.exports = {
       });
     }
   },
+  async findEquipLabById(req, res, next) {
+    try {
+      const id = req.query.idLab;
+      const data = await User.getAllEquipo(id);
+      console.log(data);
+      return res.status(201).json({
+        success: true,
+        message: "Laboratorio y equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener el usuario por ID",
+      });
+    }
+  },
 };
