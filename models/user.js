@@ -16,7 +16,7 @@ User.getAll = () => {
   return db.manyOrNone(sql);
 };
 
-//Sentencoa que recupera todos la la informacion de equipos por id laboratorio
+//Sentencoa que recupera todos la informacion de equipos por id laboratorio
 User.getAllEquipo = (idlaboratorio) => {
   const sql = `
 
@@ -68,21 +68,17 @@ User.getAllLabsPUser = (idusuario) => {
         'name',LAB.nombre
       )
     ) as Labs
-      
     FROM 
       public.usuario as u
-      
     INNER join 
-      public."Relacion_lab_user" as RLU
+      public.'Relacion_lab_user' as RLU
     ON 
       RLU.id_usuario = u.idusuario
     INNER join 
-      public.laboratorio  as LAB
+      public.laboratorio as LAB
     ON LAB.idlaboratorio = RLU.id_laboratorio
-    
     where 
       u.idusuario=$1
-    
     group by u.idusuario
     `;
 
