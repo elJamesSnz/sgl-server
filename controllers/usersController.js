@@ -97,9 +97,9 @@ module.exports = {
     try {
       const id = req.query.idUser;
       const data = await User.getAllLabsPUser(id);
-      console.log(`Usuario: ${data[0]}`);
+      console.log(`Usuario: ${data.data[0]}`);
       return res.status(201).json({
-        success: false,
+        success: true,
         message: "Usuario recuperado",
         data: data,
       });
