@@ -27,17 +27,16 @@ SELECT
 
 json_agg(
 	json_build_object( 
-    'name',EQ.nombre,
-    'desc',EQ.descripcion,
+    'name',EQ.nombre,    
     'code',EQ.codigo_barras,
     'mode',EQ.modelo,
     'ano',EQ.ano,
     'fallo',EQ.fallo,
     'estado',EQ.estado,
-    'manual',EQ.manual,
     'name_man',EQ.nombre_manual,
     'foto',EQ."Foto_fallo",
-    'Disponible',EQ."Disponibilidad"	
+    'Disponible',EQ."Disponibilidad",
+    'desc',EQ.id_descripcion	
 	)
 ) as Equip
 	
@@ -60,26 +59,33 @@ json_agg(
 User.getAllLabsPUser = (idusuario) => {
   const sql = `
   SELECT 
-    u.idusuario,
-    u.nombre, 
-    json_agg(
-      json_build_object( 
-        'id', RLU.id_laboratorio,
-        'name',LAB.nombre
-      )
-    ) as Labs
-    FROM 
-      public.usuario as u
-    INNER join 
-      public."Relacion_lab_user" as RLU
-    ON 
-      RLU.id_usuario = u.idusuario
-    INNER join 
-      public.laboratorio as LAB
-    ON LAB.idlaboratorio = RLU.id_laboratorio
-    where 
-      u.idusuario=$1
-    group by u.idusuario
+  L.idlaboratorio,
+  L.nombre,
+
+json_agg(
+	json_build_object( 
+    'name',EQ.nombre,    
+    'code',EQ.codigo_barras,
+    'mode',EQ.modelo,
+    'ano',EQ.ano,
+    'fallo',EQ.fallo,
+    'estado',EQ.estado,
+    'name_man',EQ.nombre_manual,
+    'foto',EQ."Foto_fallo",
+    'Disponible',EQ."Disponibilidad",
+    'desc',EQ."Id_descripcion"
+	)
+) as Equip
+	
+  FROM 
+		public.laboratorio as L
+	INNER join 
+		public.equipamiento as EQ
+	ON 
+		EQ."idLaboratorio" = L.idlaboratorio
+		
+	where L.idlaboratorio=$1
+	group by L.idlaboratorio
     `;
 
   return db.oneOrNone(sql, idusuario);
@@ -93,7 +99,7 @@ User.findById = (id) => {
       correo,
       nombre,
       contraseña,
-      session_token,      
+      session_token      
     FROM
         usuario
     WHERE
@@ -154,34 +160,31 @@ User.PostEquipo = (equipamiento) => {
       equipamiento(
             
             nombre,
-            descripcion,
             codigo_barras,
             modelo,
             ano,
             fallo,
             estado,
-            manual,
             nombre_manual,
             idLaboratorio,
             Foto_fallo,
-            Disponibilidad
+            Disponibilidad,
+            Id_descripcion,
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING idequipo
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING idequipo
     `;
   return db.oneOrNone(sql, [
-    equipamiento.idequipo,
     equipamiento.nombre,
-    equipamiento.descripcion,
     equipamiento.codigo_barras,
     equipamiento.modelo,
     equipamiento.ano,
     equipamiento.fallo,
     equipamiento.estado,
-    equipamiento.manual,
     equipamiento.nombre_manual,
     equipamiento.idLaboratorio,
     equipamiento.Foto_fallo,
     equipamiento.Disponibilidad,
+    equipamiento.Id_descripcion,
   ]);
 };
 
