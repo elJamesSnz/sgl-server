@@ -209,7 +209,7 @@ User.PostEquipo = (equipamiento) => {
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
     `;
-  return db.oneorNone(sql, [
+  return db.oneOrNone(sql, [
     equipamiento.nombre,
     equipamiento.codigo_barras,
     equipamiento.modelo,
@@ -246,7 +246,7 @@ User.PostAdeudo = (solicitud_alumno) => {
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning idsolicitud
     `;
-  return db.oneorNone(sql, [
+  return db.oneOrNone(sql, [
     solicitud_alumno.nombre,
     solicitud_alumno.boleta,
     solicitud_alumno.carrera,
