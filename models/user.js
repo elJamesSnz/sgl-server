@@ -128,7 +128,7 @@ User.DebtByLab = (idlaboratorio) => {
   
   
   where 
-    la.idlaboratorio=6
+    la.idlaboratorio=$1
   group by la.idlaboratorio `;
 
   return db.oneOrNone(sql, idlaboratorio);
