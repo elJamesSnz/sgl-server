@@ -256,10 +256,9 @@ User.PostAdeudo = (solicitud_alumno) => {
     solicitud_alumno.profesor,
     solicitud_alumno.estatus,
     solicitud_alumno.correo,
-    new Date(),
-    new Date(),
-    // solicitud_alumno.fecha_peticion,
-    // solicitud_alumno.fecha_entrega,
+
+    solicitud_alumno.fecha_peticion,
+    solicitud_alumno.fecha_entrega,
   ]);
 };
 
