@@ -164,6 +164,7 @@ module.exports = {
       const materia = req.body.materia;
       const nombre = req.body.nombre;
       const profesor = req.body.profesor;
+      const nombre_manual = req.body.nombre_manual;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -175,7 +176,7 @@ module.exports = {
         fecha_peticion: fecha_peticion,
         fecha_entrega: fecha_entrega,
         nombre_manual: nombre_manual,
-        idLaboratorio: idLaboratorio,
+        idlaboratorio: idlaboratorio,
         materia: materia,
         profesor: profesor,
         idequipo: idequipo,
@@ -201,7 +202,7 @@ module.exports = {
       console.log(`Error login. ${error}`);
       return res.status(501).json({
         success: false,
-        message: "Error al hacer login",
+        message: "Error al ingresar adeudo",
         error: error,
       });
     }
