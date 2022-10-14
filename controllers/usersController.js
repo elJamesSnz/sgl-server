@@ -166,7 +166,7 @@ module.exports = {
       const profesor = req.body.profesor;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
-
+      console.log("todo ok");
       const data = {
         nombre: nombre,
         boleta: boleta,
