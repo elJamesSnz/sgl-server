@@ -1,7 +1,8 @@
 //se accede al controlador
 const UsersController = require("../controllers/usersController");
 const passport = require("passport");
-import s3 from "./";
+
+//import s3 from "./";
 
 module.exports = (app) => {
   //GET para traer datos
