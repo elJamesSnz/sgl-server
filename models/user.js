@@ -117,7 +117,8 @@ User.DebtByLab = (idlaboratorio) => {
 		'fecha_en',sa.fecha_entrega,
 		'fecha_pe',sa.fecha_peticion,
 		'idequipo',sa.idequipo,
-    'nombre',la.nombre
+    'Laboratorio',la.nombre,
+    'equipo',Eq.nombre
     )
   ) as Adeudo
   FROM 
@@ -125,6 +126,9 @@ User.DebtByLab = (idlaboratorio) => {
   INNER join 
     public.solicitud_alumno as sa
 	ON sa.idlaboratorio = la.idlaboratorio 
+  INNER join public.equipamiento as Eq
+	ON Eq.idequipo = sa.idequipo
+
 
   
   
