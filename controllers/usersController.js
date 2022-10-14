@@ -210,36 +210,35 @@ module.exports = {
   async PostEquipo(req, res, next) {
     try {
       //Se recuperan las variables del body de la request
-      const boleta = req.body.boleta;
-      const carrera = req.body.carrera;
-      const correo = req.body.correo;
-      const estatus = req.body.estatus;
-      const fecha_entrega = req.body.fecha_entrega;
-      const fecha_peticion = req.body.fecha_peticion;
-      const idequipo = req.body.idequipo;
-      const idlaboratorio = req.body.idlaboratorio;
-      const materia = req.body.materia;
       const nombre = req.body.nombre;
-      const profesor = req.body.profesor;
+      const codigo_barras = req.body.codigo_barras;
+      const modelo = req.body.modelo;
+      const ano = req.body.ano;
+      const fallo = req.body.fallo;
+      const estado = req.body.estado;
+      const nombre_manual = req.body.nombre_manual;
+      const idLaboratorio = req.body.idLaboratorio;
+      const Foto_fallo = req.body.Foto_fallo;
+      const Disponibilidad = req.body.Disponibilidad;
+      const Id_descripcion = req.body.Id_descripcion;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
-      console.log("todo ok");
+
       const data = {
-        nombre: nombre,
-        boleta: boleta,
-        carrera: carrera,
-        correo: correo,
-        fecha_peticion: fecha_peticion,
-        fecha_entrega: fecha_entrega,
-        idlaboratorio: idlaboratorio,
-        materia: materia,
-        profesor: profesor,
-        idequipo: idequipo,
-        estatus: estatus,
+        nombre,
+        codigo_barras,
+        modelo,
+        ano,
+        fallo,
+        estado,
+        nombre_manual,
+        idLaboratorio,
+        Foto_fallo,
+        Disponibilidad,
+        Id_descripcion,
       };
 
-      console.log("todo ok");
-      const res = await User.PostAdeudo(data);
+      const res = await User.PostEquipo(data);
 
       return res.status(201).json({
         success: true,
@@ -258,7 +257,7 @@ module.exports = {
       console.log(`Error login. ${error}`);
       return res.status(501).json({
         success: false,
-        message: "Error al ingresar adeudo",
+        message: "Error al ingresar equipo",
         error: error,
       });
     }
