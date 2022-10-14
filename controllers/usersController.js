@@ -220,7 +220,6 @@ module.exports = {
       const idLaboratorio = req.body.idLaboratorio;
       const Foto_fallo = req.body.Foto_fallo;
       const Disponibilidad = req.body.Disponibilidad;
-      const Id_descripcion = req.body.Id_descripcion;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -235,7 +234,6 @@ module.exports = {
         idLaboratorio: idLaboratorio,
         Foto_fallo: Foto_fallo,
         Disponibilidad: Disponibilidad,
-        Id_descripcion: Id_descripcion,
       };
 
       const res = await User.PostEquipo(data);
