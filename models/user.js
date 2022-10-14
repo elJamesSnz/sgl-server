@@ -101,6 +101,39 @@ User.findById = (id) => {
   return db.oneOrNone(sql, id);
 };
 
+User.DetphByLab = (idlaboratorio) => {
+  const sql = `
+  SELECT
+	la.idlaboratorio,
+	la.nombre,
+
+  json_agg(
+    json_build_object( 
+      'name', 	sa.nombre,
+	'carrera',sa.carrera,
+		'correo',sa.correo,
+		'estatus',sa.estatus,
+		'fecha_en',sa.fecha_entrega,
+		'fecha_pe',sa.fecha_peticion,
+		'idequipo',sa.idequipo,
+      	'name',la.nombre
+    )
+  ) as Adeudo
+  FROM 
+    public.laboratorio as la
+  INNER join 
+    public.solicitud_alumno as sa
+	ON sa.idlaboratorio = la.idlaboratorio 
+
+  
+  
+  where 
+    la.idlaboratorio=6
+  group by la.idlaboratorio `;
+
+  return db.oneOrNone(sql, idlaboratorio);
+};
+
 //Sentencia SQL que recupera un único usuario por email
 User.FindByEmail = (email) => {
   const sql = `
