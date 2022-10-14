@@ -204,10 +204,9 @@ User.PostEquipo = (equipamiento) => {
             nombre_manual,
             idLaboratorio,
             Foto_fallo,
-            Disponibilidad,
-            Id_descripcion
+            Disponibilidad
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
     `;
   return db.oneOrNone(sql, [
     equipamiento.nombre,
@@ -220,8 +219,6 @@ User.PostEquipo = (equipamiento) => {
     equipamiento.idLaboratorio,
     equipamiento.Foto_fallo,
     equipamiento.Disponibilidad,
-    equipamiento.Id_descripcion,
-    equipamiento.Partida,
   ]);
 };
 
