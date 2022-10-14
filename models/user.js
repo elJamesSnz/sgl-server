@@ -109,16 +109,20 @@ User.DebtByLab = (idlaboratorio) => {
 
   json_agg(
     json_build_object( 
-    'name', sa.nombre,
-    'boleta', sa.boleta,
-	  'carrera',sa.carrera,
-		'correo',sa.correo,
-		'estatus',sa.estatus,
-		'fecha_en',sa.fecha_entrega,
-		'fecha_pe',sa.fecha_peticion,
-		'idequipo',sa.idequipo,
-    'Laboratorio',la.nombre,
-    'equipo',Eq.nombre
+      'name', sa.nombre,
+      'boleta', sa.boleta,
+      'carrera',sa.carrera,
+      'correo',sa.correo,
+      'estatus',sa.estatus,
+      'fecha_en',sa.fecha_entrega,
+      'fecha_pe',sa.fecha_peticion,
+      'idequipo',sa.idequipo,
+      'name',la.nombre,
+      'equipo',Eq.nombre,
+      'codigo',Eq.codigo_barras,
+      'modelo', Eq.modelo,		
+      'ano',Eq.ano,
+      'Foto_fallo', Eq."Foto_fallo"
     )
   ) as Adeudo
   FROM 
