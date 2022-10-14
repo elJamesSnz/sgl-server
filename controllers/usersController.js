@@ -225,17 +225,17 @@ module.exports = {
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
       const data = {
-        nombre,
-        codigo_barras,
-        modelo,
-        ano,
-        fallo,
-        estado,
-        nombre_manual,
-        idLaboratorio,
-        Foto_fallo,
-        Disponibilidad,
-        Id_descripcion,
+        nombre: nombre,
+        codigo_barras: codigo_barras,
+        modelo: modelo,
+        ano: ano,
+        fallo: fallo,
+        estado: estado,
+        nombre_manual: nombre_manual,
+        idLaboratorio: idLaboratorio,
+        Foto_fallo: Foto_fallo,
+        Disponibilidad: Disponibilidad,
+        Id_descripcion: Id_descripcion,
       };
 
       const res = await User.PostEquipo(data);
