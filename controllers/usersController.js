@@ -138,14 +138,14 @@ module.exports = {
       console.log(data);
       return res.status(201).json({
         success: true,
-        message: "Laboratorio y equipos recuperados",
+        message: "Adeudos por laboratorios recuperados",
         data: data,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
       return res.status(501).json({
         success: false,
-        message: "Error al obtener equipos de laboratorio por ID",
+        message: "Error al obtener equipos por laboratorios",
       });
     }
   },

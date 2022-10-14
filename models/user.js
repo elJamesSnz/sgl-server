@@ -109,8 +109,9 @@ User.DebtByLab = (idlaboratorio) => {
 
   json_agg(
     json_build_object( 
-      'name', 	sa.nombre,
-	'carrera',sa.carrera,
+    'name', sa.nombre,
+    'boleta', sa.boleta,
+	  'carrera',sa.carrera,
 		'correo',sa.correo,
 		'estatus',sa.estatus,
 		'fecha_en',sa.fecha_entrega,
