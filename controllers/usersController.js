@@ -166,7 +166,7 @@ module.exports = {
       const profesor = req.body.profesor;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
-      console.log("todo ok");
+
       const data = {
         nombre: nombre,
         boleta: boleta,
@@ -181,7 +181,6 @@ module.exports = {
         estatus: estatus,
       };
 
-      console.log("todo ok");
       const res = await User.PostAdeudo(data);
 
       return res.status(201).json({
