@@ -36,7 +36,7 @@ json_agg(
     'name_man',EQ.nombre_manual,
     'foto',EQ."Foto_fallo",
     'Disponible',EQ."Disponibilidad",
-    'desc',EQ.id_descripcion	
+    'desc',EQ."Id_descripcion"	
 	)
 ) as Equip
 	
