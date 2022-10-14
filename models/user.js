@@ -101,7 +101,7 @@ User.findById = (id) => {
   return db.oneOrNone(sql, id);
 };
 
-User.DetphByLab = (idlaboratorio) => {
+User.DebtByLab = (idlaboratorio) => {
   const sql = `
   SELECT
 	la.idlaboratorio,

@@ -1,6 +1,7 @@
 //se accede al controlador
 const UsersController = require("../controllers/usersController");
 const passport = require("passport");
+import s3 from "./";
 
 module.exports = (app) => {
   //GET para traer datos
@@ -12,6 +13,7 @@ module.exports = (app) => {
   //GET para traer equipamiento x laboratorio
   app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
 
+  app.get("/api/users/DebtByLab", UsersController.DebtByLab);
   /*
   app.get(
     "/api/users/getMe",
