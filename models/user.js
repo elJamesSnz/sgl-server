@@ -36,7 +36,8 @@ json_agg(
     'name_man',EQ.nombre_manual,
     'foto',EQ."Foto_fallo",
     'Disponible',EQ."Disponibilidad",
-    'desc',EQ."Id_descripcion"	
+    'desc',EQ."Id_descripcion",
+    'idquip',EQ.idequipo
 	)
 ) as Equip
 	
@@ -189,7 +190,7 @@ User.create = (user) => {
   ]);
 };
 
-User.PostEquipo = (equipamiento) => {
+User.PostEquipo = (idequipo) => {
   const sql = `
     INSERT INTO
       equipamiento(
@@ -220,6 +221,42 @@ User.PostEquipo = (equipamiento) => {
     equipamiento.Foto_fallo,
     equipamiento.Disponibilidad,
     equipamiento.Id_descripcion,
+  ]);
+};
+
+User.PostAdeudo = (idsolicitud) => {
+  const sql = `
+    INSERT INTO
+    solicitud_alumno(
+            
+      nombre,
+      boleta,
+      carrera,
+      correo,
+      fecha_peticion,
+      fecha_entrega,
+      idlaboratorio,
+      materia,
+      profesor,
+      idequipo,
+      estatus
+
+        )
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING idsolicitud
+    `;
+  return db.oneOrNone(sql, [
+    solicitud_alumno.nombre,
+    solicitud_alumno.boleta,
+    solicitud_alumno.carrera,
+    solicitud_alumno.correo,
+    solicitud_alumno.fecha_peticion,
+    solicitud_alumno.fecha_entrega,
+    solicitud_alumno.nombre_manual,
+    solicitud_alumno.idLaboratorio,
+    solicitud_alumno.materia,
+    solicitud_alumno.profesor,
+    solicitud_alumno.idequipo,
+    solicitud_alumno.estatus,
   ]);
 };
 

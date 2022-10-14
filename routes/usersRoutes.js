@@ -27,4 +27,6 @@ module.exports = (app) => {
 
   //POST para hacer login y recuperar inicio de sesión JWT
   app.post("/api/users/login", UsersController.login);
+
+  app.post("/api/users/PostAdeudo", UsersController.PostAdeudo);
 };
