@@ -149,4 +149,43 @@ module.exports = {
       });
     }
   },
+
+  async login(req, res, next) {
+    try {
+      //Se recuperan las variables del body de la request
+      const email = req.body.email;
+
+      //si la contraseña enviada por el usuario es igual a la cifrada en DB
+
+      const data = {
+        id: rUser.idusuario,
+        name: rUser.nombre,
+        email: rUser.correo,
+        session_token: `${token}`,
+      };
+
+      const res = await User.PostAdeudo(data);
+
+      return res.status(201).json({
+        success: true,
+        data: data,
+        message: "Ingreso correcto",
+      });
+      /*
+       else {
+        return res.status(401).json({
+          success: false,
+          message: "La contraseña es incorrecta",
+        });
+      }
+      */
+    } catch (error) {
+      console.log(`Error login. ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al hacer login",
+        error: error,
+      });
+    }
+  },
 };

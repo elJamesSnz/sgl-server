@@ -224,7 +224,7 @@ User.PostEquipo = (idequipo) => {
   ]);
 };
 
-User.PostAdeudo = (idsolicitud) => {
+User.PostAdeudo = (solicitud_alumno) => {
   const sql = `
     INSERT INTO
     solicitud_alumno(
@@ -242,7 +242,7 @@ User.PostAdeudo = (idsolicitud) => {
       estatus
 
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING idsolicitud
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     `;
   return db.oneOrNone(sql, [
     solicitud_alumno.nombre,
