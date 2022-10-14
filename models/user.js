@@ -117,7 +117,7 @@ User.DebtByLab = (idlaboratorio) => {
 		'fecha_en',sa.fecha_entrega,
 		'fecha_pe',sa.fecha_peticion,
 		'idequipo',sa.idequipo,
-      	'name',la.nombre
+    'nombre',la.nombre
     )
   ) as Adeudo
   FROM 
