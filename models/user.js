@@ -205,7 +205,7 @@ User.PostEquipo = (idequipo) => {
             idLaboratorio,
             Foto_fallo,
             Disponibilidad,
-            Id_descripcion,
+            Id_descripcion
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING idequipo
     `;
@@ -239,7 +239,7 @@ User.PostAdeudo = (solicitud_alumno) => {
       estatus,
       correo,
       fecha_peticion,
-      fecha_entrega,
+      fecha_entrega
       
 
         )
