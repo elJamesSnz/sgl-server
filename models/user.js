@@ -190,7 +190,7 @@ User.create = (user) => {
   ]);
 };
 
-User.PostEquipo = (idequipo) => {
+User.PostEquipo = (equipamiento) => {
   const sql = `
     INSERT INTO
       equipamiento(
@@ -207,7 +207,7 @@ User.PostEquipo = (idequipo) => {
             Disponibilidad,
             Id_descripcion
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING idequipo
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
     `;
   return db.oneOrNone(sql, [
     equipamiento.nombre,

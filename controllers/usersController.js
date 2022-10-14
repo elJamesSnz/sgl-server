@@ -181,6 +181,7 @@ module.exports = {
         estatus: estatus,
       };
 
+      console.log("todo ok");
       const res = await User.PostAdeudo(data);
 
       return res.status(201).json({
