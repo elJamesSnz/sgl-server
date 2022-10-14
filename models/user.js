@@ -232,14 +232,15 @@ User.PostAdeudo = (solicitud_alumno) => {
       nombre,
       boleta,
       carrera,
+      idlaboratorio,
+      idequipo,
+      materia,
+      profesor,
+      estatus,
       correo,
       fecha_peticion,
       fecha_entrega,
-      idlaboratorio,
-      materia,
-      profesor,
-      idequipo,
-      estatus
+      
 
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
@@ -248,15 +249,14 @@ User.PostAdeudo = (solicitud_alumno) => {
     solicitud_alumno.nombre,
     solicitud_alumno.boleta,
     solicitud_alumno.carrera,
+    solicitud_alumno.idlaboratorio,
+    solicitud_alumno.idequipo,
+    solicitud_alumno.materia,
+    solicitud_alumno.profesor,
+    solicitud_alumno.estatus,
     solicitud_alumno.correo,
     solicitud_alumno.fecha_peticion,
     solicitud_alumno.fecha_entrega,
-    solicitud_alumno.nombre_manual,
-    solicitud_alumno.idLaboratorio,
-    solicitud_alumno.materia,
-    solicitud_alumno.profesor,
-    solicitud_alumno.idequipo,
-    solicitud_alumno.estatus,
   ]);
 };
 

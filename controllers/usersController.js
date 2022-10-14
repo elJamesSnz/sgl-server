@@ -150,18 +150,36 @@ module.exports = {
     }
   },
 
-  async login(req, res, next) {
+  async PostAdeudo(req, res, next) {
     try {
       //Se recuperan las variables del body de la request
-      const email = req.body.email;
+      const boleta = req.body.boleta;
+      const carrera = req.body.carrera;
+      const correo = req.body.correo;
+      const estatus = req.body.estatus;
+      const fecha_entrega = req.body.fecha_entrega;
+      const fecha_peticion = req.body.fecha_peticion;
+      const idequipo = req.body.idequipo;
+      const idlaboratorio = req.body.idlaboratorio;
+      const materia = req.body.materia;
+      const nombre = req.body.nombre;
+      const profesor = req.body.profesor;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
       const data = {
-        id: rUser.idusuario,
-        name: rUser.nombre,
-        email: rUser.correo,
-        session_token: `${token}`,
+        nombre: nombre,
+        boleta: boleta,
+        carrera: carrera,
+        correo: correo,
+        fecha_peticion: fecha_peticion,
+        fecha_entrega: fecha_entrega,
+        nombre_manual: nombre_manual,
+        idLaboratorio: idLaboratorio,
+        materia: materia,
+        profesor: profesor,
+        idequipo: idequipo,
+        estatus: estatus,
       };
 
       const res = await User.PostAdeudo(data);
