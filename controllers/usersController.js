@@ -164,7 +164,6 @@ module.exports = {
       const materia = req.body.materia;
       const nombre = req.body.nombre;
       const profesor = req.body.profesor;
-      const nombre_manual = req.body.nombre_manual;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -175,7 +174,6 @@ module.exports = {
         correo: correo,
         fecha_peticion: fecha_peticion,
         fecha_entrega: fecha_entrega,
-        nombre_manual: nombre_manual,
         idlaboratorio: idlaboratorio,
         materia: materia,
         profesor: profesor,
