@@ -58,34 +58,27 @@ json_agg(
 //Sentencia Sql que solicita los laboratorios a los que tiene acceso
 User.getAllLabsPUser = (idusuario) => {
   const sql = `
-  SELECT 
-  L.idlaboratorio,
-  L.nombre,
-
-json_agg(
-	json_build_object( 
-    'name',EQ.nombre,    
-    'code',EQ.codigo_barras,
-    'mode',EQ.modelo,
-    'ano',EQ.ano,
-    'fallo',EQ.fallo,
-    'estado',EQ.estado,
-    'name_man',EQ.nombre_manual,
-    'foto',EQ."Foto_fallo",
-    'Disponible',EQ."Disponibilidad",
-    'desc',EQ."Id_descripcion"
-	)
-) as Equip
-	
+  SELECT
+  u.idusuario,
+  u.nombre, 
+  json_agg(
+    json_build_object( 
+      'id', RLU.id_laboratorio,
+      'name',LAB.nombre
+    )
+  ) as Labs
   FROM 
-		public.laboratorio as L
-	INNER join 
-		public.equipamiento as EQ
-	ON 
-		EQ."idLaboratorio" = L.idlaboratorio
-		
-	where L.idlaboratorio=$1
-	group by L.idlaboratorio
+    public.usuario as u
+  INNER join 
+    public."Relacion_lab_user" as RLU
+  ON 
+    RLU.id_usuario = u.idusuario
+  INNER join 
+    public.laboratorio as LAB
+  ON LAB.idlaboratorio = RLU.id_laboratorio
+  where 
+    u.idusuario=$1
+  group by u.idusuario
     `;
 
   return db.oneOrNone(sql, idusuario);
