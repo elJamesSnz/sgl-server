@@ -206,4 +206,61 @@ module.exports = {
       });
     }
   },
+
+  async PostEquipo(req, res, next) {
+    try {
+      //Se recuperan las variables del body de la request
+      const boleta = req.body.boleta;
+      const carrera = req.body.carrera;
+      const correo = req.body.correo;
+      const estatus = req.body.estatus;
+      const fecha_entrega = req.body.fecha_entrega;
+      const fecha_peticion = req.body.fecha_peticion;
+      const idequipo = req.body.idequipo;
+      const idlaboratorio = req.body.idlaboratorio;
+      const materia = req.body.materia;
+      const nombre = req.body.nombre;
+      const profesor = req.body.profesor;
+
+      //si la contraseña enviada por el usuario es igual a la cifrada en DB
+      console.log("todo ok");
+      const data = {
+        nombre: nombre,
+        boleta: boleta,
+        carrera: carrera,
+        correo: correo,
+        fecha_peticion: fecha_peticion,
+        fecha_entrega: fecha_entrega,
+        idlaboratorio: idlaboratorio,
+        materia: materia,
+        profesor: profesor,
+        idequipo: idequipo,
+        estatus: estatus,
+      };
+
+      console.log("todo ok");
+      const res = await User.PostAdeudo(data);
+
+      return res.status(201).json({
+        success: true,
+        data: data,
+        message: "Ingreso correcto",
+      });
+      /*
+       else {
+        return res.status(401).json({
+          success: false,
+          message: "La contraseña es incorrecta",
+        });
+      }
+      */
+    } catch (error) {
+      console.log(`Error login. ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al ingresar adeudo",
+        error: error,
+      });
+    }
+  },
 };
