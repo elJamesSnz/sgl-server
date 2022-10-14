@@ -133,6 +133,7 @@ module.exports = {
   async DebtByLab(req, res, next) {
     try {
       const id = req.query.idLab;
+      console.log(id);
       const data = await User.DebtByLab(id);
       console.log(data);
       return res.status(201).json({
