@@ -30,4 +30,7 @@ module.exports = (app) => {
 
   //POST para ingresar audeudo
   app.post("/api/users/PostAdeudo", UsersController.PostAdeudo);
+
+  //POST para ingresar equipo
+  app.post("/api/users/PostEquipo", UsersController.PostEquipo);
 };

@@ -209,7 +209,7 @@ User.PostEquipo = (equipamiento) => {
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
     `;
-  return db.oneOrNone(sql, [
+  return db.none(sql, [
     equipamiento.nombre,
     equipamiento.codigo_barras,
     equipamiento.modelo,
@@ -221,6 +221,7 @@ User.PostEquipo = (equipamiento) => {
     equipamiento.Foto_fallo,
     equipamiento.Disponibilidad,
     equipamiento.Id_descripcion,
+    equipamiento.Partida,
   ]);
 };
 
@@ -245,7 +246,7 @@ User.PostAdeudo = (solicitud_alumno) => {
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     `;
-  return db.oneOrNone(sql, [
+  return db.none(sql, [
     solicitud_alumno.nombre,
     solicitud_alumno.boleta,
     solicitud_alumno.carrera,
