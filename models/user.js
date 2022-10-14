@@ -202,9 +202,9 @@ User.PostEquipo = (equipamiento) => {
             fallo,
             estado,
             nombre_manual,
-            idLaboratorio,
-            Foto_fallo,
-            Disponibilidad
+            "idLaboratorio",
+            "Foto_fallo",
+            "Disponibilidad"
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
     `;
