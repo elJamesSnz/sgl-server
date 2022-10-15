@@ -135,7 +135,6 @@ module.exports = {
       const id = req.query.idLab;
       console.log(id);
       const data = await User.DebtByLab(id);
-      console.log(data);
       return res.status(201).json({
         success: true,
         message: "Adeudos por laboratorios recuperados",
