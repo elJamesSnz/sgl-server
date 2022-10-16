@@ -149,6 +149,25 @@ module.exports = {
     }
   },
 
+  async Debt(req, res, next) {
+    try {
+      const id = req.query.idLab;
+      console.log(id);
+      const data = await User.Debt(id);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos por laboratorios recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos por laboratorios",
+      });
+    }
+  },
+
   async PostAdeudo(req, res, next) {
     try {
       //Se recuperan las variables del body de la request

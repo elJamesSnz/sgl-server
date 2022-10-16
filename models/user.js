@@ -101,7 +101,7 @@ User.findById = (id) => {
 
   return db.oneOrNone(sql, id);
 };
-
+//sentencia que recuoera deuda por laboratorio con inner join
 User.DebtByLab = (idlaboratorio) => {
   const sql = `
   SELECT
@@ -135,6 +135,40 @@ User.DebtByLab = (idlaboratorio) => {
 	ON Eq.idequipo = sa.idequipo
 
 
+  
+  
+  where 
+    la.idlaboratorio=$1
+  group by la.idlaboratorio `;
+
+  return db.oneOrNone(sql, idlaboratorio);
+};
+
+//sentencia que recuoera deuda por laboratorio sin inner join
+User.Debt = (idlaboratorio) => {
+  const sql = `
+  SELECT 
+  
+  json_agg(
+    json_build_object( 
+      'nombre',SA.nombre,    
+      'boleta',SA.boleta,
+      'carrera',SA.carrera,
+      'idlaboratorio',SA.idlaboratorio,
+      'idequipo',SA.idequipo,
+      'materia',SA.materia,
+      'profesor',SA.profesor,
+      'estatus',SA."estatus",
+      'correo',SA.correo,
+      'fecha_peticion',SA.fecha_peticion,
+      'fecha_entrega',SA.fecha_entrega,
+      'otro',SA.otro,
+      'otro_name',SA.otro_name,
+      'otro_motivo',SA.otro_motivo
+    )
+  ) as Debt
+
+	FROM public.solicitud_alumno SA;
   
   
   where 

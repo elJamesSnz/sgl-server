@@ -14,7 +14,11 @@ module.exports = (app) => {
   //GET para traer equipamiento x laboratorio
   app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
 
+  //GET para traer la deuda por laboratorio
   app.get("/api/users/DebtByLab", UsersController.DebtByLab);
+  //GET para traer la deuda por laboratorio sin join
+  app.get("/api/users/Debt", UsersController.Debt);
+
   /*
   app.get(
     "/api/users/getMe",
