@@ -172,8 +172,8 @@ User.Debt = (idlaboratorio) => {
   
   
   where 
-    la.idlaboratorio=$1
-  group by la.idlaboratorio `;
+    idlaboratorio=$1
+  group by idlaboratorio `;
 
   return db.oneOrNone(sql, idlaboratorio);
 };
