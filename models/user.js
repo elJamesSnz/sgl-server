@@ -168,7 +168,7 @@ User.Debt = (idlaboratorio) => {
     )
   ) as Debt
 
-	FROM public.solicitud_alumno SA;
+	FROM public.solicitud_alumno as SA;
   
   
   where 
