@@ -145,7 +145,7 @@ User.AllLab = () => {
   SELECT idlaboratorio, nombre
 	FROM public.laboratorio;`;
 
-  return db.oneOrNone(sql);
+  return db.manyOrNone(sql);
 };
 
 //sentencia que recuoera deuda por laboratorio con inner join
