@@ -61,27 +61,22 @@ User.getAllEquipo = () => {
   const sql = `
 
 
-SELECT 
+  SELECT 
   L.idlaboratorio,
   L.nombre,
+  EQ.nombre,    
+  EQ.codigo_barras,
+  EQ.modelo,
+  EQ.ano,
+  EQ.fallo,
+  EQ.estado,
+  EQ.nombre_manual,
+  EQ."Foto_fallo",
+  EQ."Disponibilidad",
+  EQ."Id_descripcion",
+  EQ.idequipo,
+  L.nombre
 
-json_agg(
-	json_build_object( 
-    'name',EQ.nombre,    
-    'code',EQ.codigo_barras,
-    'mode',EQ.modelo,
-    'ano',EQ.ano,
-    'fallo',EQ.fallo,
-    'estado',EQ.estado,
-    'name_man',EQ.nombre_manual,
-    'foto',EQ."Foto_fallo",
-    'Disponible',EQ."Disponibilidad",
-    'desc',EQ."Id_descripcion",
-    'idequipo',EQ.idequipo,
-    'laboratorio',L.nombre
-	)
-) as Equipo
-	
   FROM 
 		public.laboratorio as L
 	INNER join 
@@ -90,7 +85,7 @@ json_agg(
 		EQ."idLaboratorio" = L.idlaboratorio
 		
 	
-	group by L.idlaboratorio
+
   order by L.idlaboratorio
 
   `;
@@ -192,25 +187,21 @@ User.AllDebts = () => {
   SELECT
 	la.idlaboratorio,
 	la.nombre,
+  sa.nombre,
+  sa.boleta,
+  sa.carrera,
+  sa.correo,
+  sa.estatus,
+  sa.fecha_entrega,
+  sa.fecha_peticion,
+  sa.idequipo,
+  la.nombre,
+  Eq.nombre,
+  Eq.codigo_barras,
+  Eq.modelo,		
+  Eq.ano,
+  Eq."Foto_fallo"
 
-  json_agg(
-    json_build_object( 
-      'name', sa.nombre,
-      'boleta', sa.boleta,
-      'carrera',sa.carrera,
-      'correo',sa.correo,
-      'estatus',sa.estatus,
-      'fecha_en',sa.fecha_entrega,
-      'fecha_pe',sa.fecha_peticion,
-      'idequipo',sa.idequipo,
-      'name',la.nombre,
-      'equipo',Eq.nombre,
-      'codigo',Eq.codigo_barras,
-      'modelo', Eq.modelo,		
-      'ano',Eq.ano,
-      'Foto_fallo', Eq."Foto_fallo"
-    )
-  ) as Adeudo
   FROM 
     public.laboratorio as la
   INNER join 
@@ -219,7 +210,7 @@ User.AllDebts = () => {
   INNER join public.equipamiento as Eq
 	ON Eq.idequipo = sa.idequipo
 
-  group by la.idlaboratorio
+
     
   order by la.idlaboratorio
   `;
