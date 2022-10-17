@@ -101,8 +101,8 @@ User.getAllLabsPUser = (idusuario) => {
   u.nombre, 
   json_agg(
     json_build_object( 
-      'id', RLU.id_laboratorio,
-      'name',LAB.nombre
+      'idlaboratorio', RLU.id_laboratorio,
+      'nombre',LAB.nombre
     )
   ) as Labs
   FROM 
