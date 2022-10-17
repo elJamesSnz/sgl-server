@@ -131,7 +131,7 @@ module.exports = {
   },
   async getAllEquipo(req, res, next) {
     try {
-      const data = await User.getAllEquipoByLabs();
+      const data = await User.getAllEquipo();
       console.log(data);
       return res.status(201).json({
         success: true,

@@ -77,7 +77,8 @@ json_agg(
     'foto',EQ."Foto_fallo",
     'Disponible',EQ."Disponibilidad",
     'desc',EQ."Id_descripcion",
-    'idequipo',EQ.idequipo
+    'idequipo',EQ.idequipo,
+    'laboratorio',L.idlaboratorio
 	)
 ) as Equipo
 	
