@@ -79,7 +79,7 @@ json_agg(
     'desc',EQ."Id_descripcion",
     'idequipo',EQ.idequipo
 	)
-) as Equip
+) as Equipo
 	
   FROM 
 		public.laboratorio as L
