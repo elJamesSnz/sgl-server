@@ -64,7 +64,7 @@ User.getAllEquipo = () => {
   SELECT 
   L.idlaboratorio,
   L.nombre,
-  EQ.nombre,    
+  EQ.nombre as nombreequipo,    
   EQ.codigo_barras,
   EQ.modelo,
   EQ.ano,
