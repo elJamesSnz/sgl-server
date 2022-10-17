@@ -147,7 +147,7 @@ module.exports = {
     }
   },
 
-  async getAllEquipo(req, res, next) {
+  async AllLab(req, res, next) {
     try {
       const data = await User.AllLab();
       console.log(data);
