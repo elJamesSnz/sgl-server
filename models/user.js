@@ -27,7 +27,7 @@ SELECT
 
 json_agg(
 	json_build_object( 
-    'name',EQ.nombre as nombreequipo,    
+    'nombreequipo',EQ.nombre ,    
     'code',EQ.codigo_barras,
     'mode',EQ.modelo,
     'ano',EQ.ano,
@@ -166,7 +166,7 @@ User.DebtByLab = (idlaboratorio) => {
       'fecha_pe',sa.fecha_peticion,
       'idequipo',sa.idequipo,
       'name',la.nombre,
-      'equipo',Eq.nombre,
+      'nombreequipo',Eq.nombre,
       'codigo',Eq.codigo_barras,
       'modelo', Eq.modelo,		
       'ano',Eq.ano,
