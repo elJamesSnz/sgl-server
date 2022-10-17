@@ -27,7 +27,7 @@ SELECT
 
 json_agg(
 	json_build_object( 
-    'name',EQ.nombre as nombreequipo,    
+    'nombreequipo',EQ.nombre ,    
     'code',EQ.codigo_barras,
     'mode',EQ.modelo,
     'ano',EQ.ano,
