@@ -326,7 +326,8 @@ User.PostEquipo = (equipamiento) => {
             nombre_manual,
             "idLaboratorio",
             "Foto_fallo",
-            "Disponibilidad"
+            "Disponibilidad",
+            "Partida"
         )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning
     `;
@@ -341,6 +342,7 @@ User.PostEquipo = (equipamiento) => {
     equipamiento.idLaboratorio,
     equipamiento.Foto_fallo,
     equipamiento.Disponibilidad,
+    equipamiento.Partida,
   ]);
 };
 

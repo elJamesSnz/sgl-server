@@ -289,6 +289,7 @@ module.exports = {
       const idLaboratorio = req.body.idLaboratorio;
       const Foto_fallo = req.body.Foto_fallo;
       const Disponibilidad = req.body.Disponibilidad;
+      const Partida= req.body.Partida;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -303,6 +304,8 @@ module.exports = {
         idLaboratorio: idLaboratorio,
         Foto_fallo: Foto_fallo,
         Disponibilidad: Disponibilidad,
+       Partida:Partida
+        
       };
 
       const res = await User.PostEquipo(data);
@@ -321,7 +324,7 @@ module.exports = {
       }
       */
     } catch (error) {
-      console.log(`Error login. ${error}`);
+      console.log(`Error post equipo. ${error}`);
       return res.status(501).json({
         success: false,
         message: "Error al ingresar equipo",
