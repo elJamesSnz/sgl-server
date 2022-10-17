@@ -17,7 +17,7 @@ User.getAll = () => {
 };
 
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
-User.getAllEquipo = (idlaboratorio) => {
+User.getAllEquipoByLabs = (idlaboratorio) => {
   const sql = `
 
 
@@ -50,6 +50,47 @@ json_agg(
 		
 	where L.idlaboratorio=$1
 	group by L.idlaboratorio
+
+  `;
+
+  return db.oneOrNone(sql, idlaboratorio);
+};
+
+//Sentencoa que recupera todos la informacion de equipos por id laboratorio
+User.getAllEquipo = () => {
+  const sql = `
+
+
+SELECT 
+  L.idlaboratorio,
+  L.nombre,
+
+json_agg(
+	json_build_object( 
+    'name',EQ.nombre,    
+    'code',EQ.codigo_barras,
+    'mode',EQ.modelo,
+    'ano',EQ.ano,
+    'fallo',EQ.fallo,
+    'estado',EQ.estado,
+    'name_man',EQ.nombre_manual,
+    'foto',EQ."Foto_fallo",
+    'Disponible',EQ."Disponibilidad",
+    'desc',EQ."Id_descripcion",
+    'idequipo',EQ.idequipo
+	)
+) as Equip
+	
+  FROM 
+		public.laboratorio as L
+	INNER join 
+		public.equipamiento as EQ
+	ON 
+		EQ."idLaboratorio" = L.idlaboratorio
+		
+	
+	group by L.idlaboratorio
+  order by L.idlaboratorio
 
   `;
 
@@ -209,7 +250,7 @@ User.Debt = (idlaboratorio) => {
     )
   ) as Debt
 
-	FROM public.solicitud_alumno as SA;
+	FROM public.solicitud_alumno as SA
   
   
   where 

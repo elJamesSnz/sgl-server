@@ -114,7 +114,7 @@ module.exports = {
   async findEquipLabById(req, res, next) {
     try {
       const id = req.query.idLab;
-      const data = await User.getAllEquipo(id);
+      const data = await User.getAllEquipoByLabs(id);
       console.log(data);
       return res.status(201).json({
         success: true,
@@ -126,6 +126,23 @@ module.exports = {
       return res.status(501).json({
         success: false,
         message: "Error al obtener equipos de laboratorio por ID",
+      });
+    }
+  },
+  async getAllEquipo(req, res, next) {
+    try {
+      const data = await User.getAllEquipoByLabs();
+      console.log(data);
+      return res.status(201).json({
+        success: true,
+        message: "Equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos ",
       });
     }
   },
