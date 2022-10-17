@@ -98,7 +98,7 @@ User.getAllLabsPUser = (idusuario) => {
   const sql = `
   SELECT
   u.idusuario,
-  u.nombre, 
+  u.nombre as nombreusuario, 
   json_agg(
     json_build_object( 
       'idlaboratorio', RLU.id_laboratorio,
@@ -157,7 +157,7 @@ User.DebtByLab = (idlaboratorio) => {
 
   json_agg(
     json_build_object( 
-      'name', sa.nombre,
+      'name', sa.nombre as nombrealumno,
       'boleta', sa.boleta,
       'carrera',sa.carrera,
       'correo',sa.correo,
@@ -196,8 +196,8 @@ User.AllDebts = () => {
   const sql = `
   SELECT
 	la.idlaboratorio,
-	la.nombre,
-  sa.nombre,
+	la.nombre as nombrelaboratorio,
+  sa.nombre as nombrealumno,
   sa.boleta,
   sa.carrera,
   sa.correo,
@@ -205,8 +205,7 @@ User.AllDebts = () => {
   sa.fecha_entrega,
   sa.fecha_peticion,
   sa.idequipo,
-  la.nombre,
-  Eq.nombre,
+  Eq.nombre as nombreequipo,
   Eq.codigo_barras,
   Eq.modelo,		
   Eq.ano,
