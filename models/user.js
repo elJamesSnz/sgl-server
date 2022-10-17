@@ -166,7 +166,7 @@ User.DebtByLab = (idlaboratorio) => {
       'fecha_pe',sa.fecha_peticion,
       'idequipo',sa.idequipo,
       'name',la.nombre,
-      'equipo',Eq.nombre,
+      'nombreequipo',Eq.nombre,
       'codigo',Eq.codigo_barras,
       'modelo', Eq.modelo,		
       'ano',Eq.ano,
