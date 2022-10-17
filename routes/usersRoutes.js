@@ -19,6 +19,9 @@ module.exports = (app) => {
   //GET para traer la deuda por laboratorio sin join
   app.get("/api/users/Debt", UsersController.Debt);
 
+  //GET para traer todas las deudas
+  app.get("/api/users/AllDebts", UsersController.AllDebts);
+
   /*
   app.get(
     "/api/users/getMe",
