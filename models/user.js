@@ -94,7 +94,7 @@ json_agg(
 
   `;
 
-  return db.oneOrNone(sql, idlaboratorio);
+  return db.manyOrNone(sql);
 };
 
 //Sentencia Sql que solicita los laboratorios a los que tiene acceso
