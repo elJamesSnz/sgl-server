@@ -138,6 +138,16 @@ User.findById = (id) => {
 
   return db.oneOrNone(sql, id);
 };
+
+//sentencia SQL que recupera un único usuario por I_D
+User.AllLab = () => {
+  const sql = `
+  SELECT idlaboratorio, nombre
+	FROM public.laboratorio;`;
+
+  return db.oneOrNone(sql);
+};
+
 //sentencia que recuoera deuda por laboratorio con inner join
 User.DebtByLab = (idlaboratorio) => {
   const sql = `
