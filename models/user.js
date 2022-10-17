@@ -78,7 +78,7 @@ json_agg(
     'Disponible',EQ."Disponibilidad",
     'desc',EQ."Id_descripcion",
     'idequipo',EQ.idequipo,
-    'laboratorio',L.idlaboratorio
+    'laboratorio',L.nombre
 	)
 ) as Equipo
 	
@@ -269,9 +269,14 @@ User.FindByEmail = (email) => {
       correo,
       nombre,
       contraseña,
-      session_token
-    FROM
-      usuario
+      session_token,
+      "Id_Rol",
+      rol."Nombre"
+	
+	FROM public.usuario 
+	INNER join public."Roles" as rol
+	ON rol."idRelacionRol" = usuario."Id_Rol"
+   
     WHERE
       correo = $1
   `;
