@@ -16,5 +16,3 @@ let pdfDoc = printer.createPdfKitDocument(docDefinition);
 pdfDoc.pipe(fs.createWriteStream("pdfs/pdftest.pdf"));
 
 pdfDoc.end();
-
-PDFPrinter.createPdf(docDefinition).download();

@@ -200,11 +200,11 @@ module.exports = {
       });
     }
   },
-  async DebtByBoleta(req, res, next) {
+  async DebtByBoletaAdeudo(req, res, next) {
     try {
       const boleta = req.query.boleta;
       console.log(boleta);
-      const data = await User.DebtByBoleta(boleta);
+      const data = await User.DebtByBoletaAdeudo(boleta);
       return res.status(201).json({
         success: true,
         message: "Adeudos por Boleta recuperados",

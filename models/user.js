@@ -192,7 +192,7 @@ User.DebtByLab = (idlaboratorio) => {
 };
 
 //sentencia que recuoera deuda por laboratorio con inner join
-User.DebtByBoleta = (Boleta) => {
+User.DebtByBoletaAdeudo = (Boleta) => {
   const sql = `
   SELECT
 	la.idlaboratorio,
@@ -220,7 +220,9 @@ User.DebtByBoleta = (Boleta) => {
   
   
   where 
-    sa.boleta= $1 `;
+    sa.boleta= $1 
+    and 
+	sa.estatus=true`;
 
   return db.manyOrNone(sql, Boleta);
 };
