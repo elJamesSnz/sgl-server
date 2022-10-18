@@ -160,6 +160,8 @@ User.DebtByLab = (idlaboratorio) => {
       'nombrealumno', sa.nombre,
       'boleta', sa.boleta,
       'carrera',sa.carrera,
+		'materia',sa.materia,
+		'profesor',sa.profesor,
       'correo',sa.correo,
       'estatus',sa.estatus,
       'fecha_en',sa.fecha_entrega,
@@ -191,7 +193,7 @@ User.DebtByLab = (idlaboratorio) => {
   return db.oneOrNone(sql, idlaboratorio);
 };
 
-//sentencia que recuoera deuda por laboratorio con inner join
+//sentencia que recuoera deuda por boleta
 User.DebtByBoletaAdeudo = (Boleta) => {
   const sql = `
   SELECT
@@ -200,7 +202,44 @@ User.DebtByBoletaAdeudo = (Boleta) => {
   sa.nombre as nombrealumno,
 	sa.carrera,
 	sa.correo,
-	sa.estatus,
+  sa.materia,
+	sa.profesor,
+	sa.fecha_entrega,
+	sa.fecha_peticion,
+	sa.idequipo,
+	Eq.nombre nombreequipo,
+	Eq.codigo_barras,
+	Eq.modelo,		
+	Eq.ano,
+  Eq."Foto_fallo"
+
+  FROM 
+    public.laboratorio as la
+  INNER join 
+    public.solicitud_alumno as sa
+	ON sa.idlaboratorio = la.idlaboratorio 
+  INNER join public.equipamiento as Eq
+	ON Eq.idequipo = sa.idequipo
+  
+  
+  where 
+    sa.boleta= $1 
+    and 
+	sa.estatus=false`;
+
+  return db.manyOrNone(sql, Boleta);
+};
+//sentencia que recuoera no deuda por boleta
+User.DebtByBoletaNoAdeudo = (Boleta) => {
+  const sql = `
+  SELECT
+	la.idlaboratorio,
+	la.nombre as nombrelaboratorio,
+  sa.nombre as nombrealumno,
+	sa.carrera,
+	sa.correo,
+  sa.materia,
+	sa.profesor,
 	sa.fecha_entrega,
 	sa.fecha_peticion,
 	sa.idequipo,
@@ -237,6 +276,8 @@ User.AllDebts = () => {
   sa.boleta,
   sa.carrera,
   sa.correo,
+  sa.materia,
+	sa.profesor,
   sa.estatus,
   sa.fecha_entrega,
   sa.fecha_peticion,

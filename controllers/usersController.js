@@ -214,7 +214,26 @@ module.exports = {
       console.log(`Error: ${error}`);
       return res.status(501).json({
         success: false,
-        message: "Error al obtener equipos por Boleta",
+        message: "Error al obtener adeudp por Boleta",
+      });
+    }
+  },
+
+  async DebtByBoletaNoAdeudo(req, res, next) {
+    try {
+      const boleta = req.query.boleta;
+      console.log(boleta);
+      const data = await User.DebtByBoletaNoAdeudo(boleta);
+      return res.status(201).json({
+        success: true,
+        message: "No Adeudos por Boleta recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener no adeudo por Boleta",
       });
     }
   },

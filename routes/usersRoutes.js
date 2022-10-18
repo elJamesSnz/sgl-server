@@ -28,8 +28,14 @@ module.exports = (app) => {
   //GET para traer todas las deudas
   app.get("/api/users/AllDebts", UsersController.AllDebts);
 
-  //GET para traer todas las deudas
+  //GET para traer todas las deudas por boleta
   app.get("/api/users/DebtByBoletaAdeudo", UsersController.DebtByBoletaAdeudo);
+
+  //GET para traer todas  no deudas por boleta
+  app.get(
+    "/api/users/DebtByBoletaNoAdeudo",
+    UsersController.DebtByBoletaNoAdeudo
+  );
   /*
   app.get(
     "/api/users/getMe",
