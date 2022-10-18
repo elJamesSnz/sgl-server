@@ -28,6 +28,8 @@ module.exports = (app) => {
   //GET para traer todas las deudas
   app.get("/api/users/AllDebts", UsersController.AllDebts);
 
+  //GET para traer todas las deudas
+  app.get("/api/users/DebtByBoleta", UsersController.DebtByBoleta);
   /*
   app.get(
     "/api/users/getMe",

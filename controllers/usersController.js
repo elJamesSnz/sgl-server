@@ -200,6 +200,24 @@ module.exports = {
       });
     }
   },
+  async DebtByBoleta(req, res, next) {
+    try {
+      const Boleta = req.query.Boleta;
+      console.log(Boleta);
+      const data = await User.DebtByBoleta(Boleta);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos por Boleta recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos por Boleta",
+      });
+    }
+  },
 
   async Debt(req, res, next) {
     try {
@@ -289,7 +307,7 @@ module.exports = {
       const idLaboratorio = req.body.idLaboratorio;
       const Foto_fallo = req.body.Foto_fallo;
       const Disponibilidad = req.body.Disponibilidad;
-      const Partida= req.body.Partida;
+      const Partida = req.body.Partida;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -304,8 +322,7 @@ module.exports = {
         idLaboratorio: idLaboratorio,
         Foto_fallo: Foto_fallo,
         Disponibilidad: Disponibilidad,
-       Partida:Partida
-        
+        Partida: Partida,
       };
 
       const res = await User.PostEquipo(data);

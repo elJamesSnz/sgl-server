@@ -191,6 +191,41 @@ User.DebtByLab = (idlaboratorio) => {
   return db.oneOrNone(sql, idlaboratorio);
 };
 
+//sentencia que recuoera deuda por laboratorio con inner join
+User.DebtByBoleta = (Boleta) => {
+  const sql = `
+  SELECT
+	la.idlaboratorio,
+	la.nombre as nombrelaboratorio,
+    sa.nombre as nombrealumno,
+	sa.boleta,
+	sa.carrera,
+	sa.correo,
+	sa.estatus,
+	sa.fecha_entrega,
+	sa.fecha_peticion,
+	sa.idequipo,
+	Eq.nombre nombreequipo,
+	Eq.codigo_barras,
+	Eq.modelo,		
+	Eq.ano,
+    Eq."Foto_fallo"
+
+  FROM 
+    public.laboratorio as la
+  INNER join 
+    public.solicitud_alumno as sa
+	ON sa.idlaboratorio = la.idlaboratorio 
+  INNER join public.equipamiento as Eq
+	ON Eq.idequipo = sa.idequipo
+  
+  
+  where 
+    sa.boleta=$'2019640377' `;
+
+  return db.oneOrNone(sql, Boleta);
+};
+
 //sentencia que recuoera todas las deudas por laboratorio con inner join
 User.AllDebts = () => {
   const sql = `
