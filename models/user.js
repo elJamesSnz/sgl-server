@@ -220,7 +220,7 @@ User.DebtByBoleta = (Boleta) => {
   
   
   where 
-    sa.boleta=$1 `;
+    sa.boleta='$1' `;
 
   return db.manyOrNone(sql, Boleta);
 };
