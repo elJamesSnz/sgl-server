@@ -249,7 +249,7 @@ User.DebtByBoletaNoAdeudo = (Boleta) => {
 	Eq.codigo_barras,
 	Eq.modelo,		
 	Eq.ano,
-    Eq."Foto_fallo"
+  Eq."Foto_fallo"
 
   FROM 
     public.laboratorio as la
@@ -361,6 +361,17 @@ User.FindByEmail = (email) => {
   `;
 
   return db.oneOrNone(sql, email);
+};
+
+User.UpdateEstatus = (boleta, idequipo) => {
+  const sql = `
+  UPDATE public.solicitud_alumno
+	SET  estatus=true
+	WHERE boleta= $1
+	and idequipo= $2;
+  `;
+
+  return db.oneOrNone(sql, boleta, idequipo);
 };
 
 //sentencia SQL que crea nuevo usuario

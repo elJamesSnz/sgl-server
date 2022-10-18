@@ -256,6 +256,25 @@ module.exports = {
       });
     }
   },
+  async UpdateEstatus(req, res, next) {
+    try {
+      const boleta = req.query.boleta;
+      const idequipo = req.query.idequipo;
+
+      const data = await User.UpdateEstatus(boleta, idequipo);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos editados correctamente",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener editar adeudos",
+      });
+    }
+  },
 
   async PostAdeudo(req, res, next) {
     try {
