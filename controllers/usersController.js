@@ -214,7 +214,7 @@ module.exports = {
       console.log(`Error: ${error}`);
       return res.status(501).json({
         success: false,
-        message: "Error al obtener adeudp por Boleta",
+        message: "Error al obtener adeudo por Boleta",
       });
     }
   },

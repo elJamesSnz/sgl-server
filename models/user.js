@@ -238,6 +238,7 @@ User.DebtByBoletaNoAdeudo = (Boleta) => {
   sa.nombre as nombrealumno,
 	sa.carrera,
 	sa.correo,
+  sa.boleta,
   sa.materia,
 	sa.profesor,
 	sa.fecha_entrega,
