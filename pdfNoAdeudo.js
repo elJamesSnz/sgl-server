@@ -22,10 +22,7 @@ module.exports = {
       text: "El sistema de gestion de laboratorios avala que el alumno \n ",
       style: "label",
     },
-    {
-      text: `${MENU_LIST.nombre} \n `,
-      style: "header",
-    },
+
     {
       text: `Con numero de boleta ${MENU_LIST.boleta}, el cual se encuentra inscrito en la carrera de ${MENU_LIST.Carrera} 
       no adeuda ningun material ni equipo dentro de los laboratorios de: \n 
