@@ -257,26 +257,6 @@ module.exports = {
     }
   },
 
-  async EditEstatus(req, res, next) {
-    try {
-      const idequipo = req.query.idequipo;
-      const boleta = req.query.boleta;
-
-      const data = await User.EditEstatus(boleta, idequipo);
-      return res.status(201).json({
-        success: true,
-        message: "Adeudo editado correctamente",
-        data: data,
-      });
-    } catch (error) {
-      console.log(`Error: ${error}`);
-      return res.status(501).json({
-        success: false,
-        message: "Error al editar adeudo",
-      });
-    }
-  },
-
   async PostAdeudo(req, res, next) {
     try {
       //Se recuperan las variables del body de la request
