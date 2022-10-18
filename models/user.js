@@ -376,6 +376,31 @@ User.UpdateEstatus = (boleta, idequipo) => {
   return db.manyOrNone(sql, [boleta, idequipo]);
 };
 
+User.UpdateAdeudo = (
+  correo,
+  fecha_peticion,
+  fecha_entrega,
+  boleta,
+  idequipo
+) => {
+  const sql = `
+  UPDATE public.solicitud_alumno
+	SET   correo=$1, fecha_peticion=$2, fecha_entrega=$3
+	WHERE 
+	boleta=$4
+	and
+	idequipo=$5;
+  `;
+
+  return db.manyOrNone(sql, [
+    correo,
+    fecha_peticion,
+    fecha_entrega,
+    boleta,
+    idequipo,
+  ]);
+};
+
 //sentencia SQL que crea nuevo usuario
 User.create = (user) => {
   //se encripta en md5, update(pasamos el valor) digest para mantener formato hex

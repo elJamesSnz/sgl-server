@@ -31,14 +31,16 @@ module.exports = (app) => {
   //GET para traer todas las deudas por boleta
   app.get("/api/users/DebtByBoletaAdeudo", UsersController.DebtByBoletaAdeudo);
 
-  //Update estatus adeudo con boleta y equipo
-  app.get("/api/users/UpdateEstatus", UsersController.UpdateEstatus);
-
   //GET para traer todas  no deudas por boleta
   app.get(
     "/api/users/DebtByBoletaNoAdeudo",
     UsersController.DebtByBoletaNoAdeudo
   );
+  //Update estatus adeudo con boleta y equipo
+  app.post("/api/users/UpdateEstatus", UsersController.UpdateEstatus);
+  //Update estatus adeudo con boleta y equipo
+  app.post("/api/users/UpdateAdeudo", UsersController.UpdateAdeudo);
+
   /*
   app.get(
     "/api/users/getMe",
