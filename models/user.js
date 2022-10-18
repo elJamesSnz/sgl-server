@@ -373,7 +373,7 @@ User.UpdateEstatus = (boleta, idequipo) => {
   idequipo= $2;
   `;
 
-  return db.oneOrNone(sql, boleta, idequipo);
+  return db.manyOrNone(sql, [boleta, idequipo]);
 };
 
 //sentencia SQL que crea nuevo usuario
