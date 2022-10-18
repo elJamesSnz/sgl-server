@@ -367,8 +367,10 @@ User.UpdateEstatus = (boleta, idequipo) => {
   const sql = `
   UPDATE public.solicitud_alumno
 	SET  estatus=true
-	WHERE boleta= $1
-	and idequipo= $2;
+	WHERE
+   boleta= $1
+	and 
+  idequipo= $2;
   `;
 
   return db.oneOrNone(sql, boleta, idequipo);
