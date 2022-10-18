@@ -167,6 +167,9 @@ User.DebtByLab = (idlaboratorio) => {
       'fecha_en',sa.fecha_entrega,
       'fecha_pe',sa.fecha_peticion,
       'idequipo',sa.idequipo,
+      'otro',sa.otro,
+      'otro_name',sa.otro_name,
+      'otro_motivo',sa.otro_motivo,
       'name',la.nombre,
       'nombreequipo',Eq.nombre,
       'codigo',Eq.codigo_barras,
@@ -208,6 +211,9 @@ User.DebtByBoletaAdeudo = (Boleta) => {
 	sa.fecha_entrega,
 	sa.fecha_peticion,
 	sa.idequipo,
+  sa.otro,
+  sa.otro_name,
+  sa.otro_motivo,
 	Eq.nombre nombreequipo,
 	Eq.codigo_barras,
 	Eq.modelo,		
@@ -245,6 +251,9 @@ User.DebtByBoletaNoAdeudo = (Boleta) => {
 	sa.fecha_entrega,
 	sa.fecha_peticion,
 	sa.idequipo,
+  sa.otro,
+  sa.otro_name,
+  sa.otro_motivo,
 	Eq.nombre nombreequipo,
 	Eq.codigo_barras,
 	Eq.modelo,		
@@ -284,6 +293,9 @@ User.AllDebts = () => {
   sa.fecha_entrega,
   sa.fecha_peticion,
   sa.idequipo,
+  sa.otro,
+  sa.otro_name,
+  sa.otro_motivo,
   Eq.nombre as nombreequipo,
   Eq.codigo_barras,
   Eq.modelo,		
@@ -478,9 +490,12 @@ User.PostAdeudo = (solicitud_alumno) => {
       estatus,
       correo,
       fecha_peticion,
-      fecha_entrega
+      fecha_entrega,
+      otro,
+      otro_name,
+      otro_motivo
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning idsolicitud
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12, $13, $14) returning idsolicitud
     `;
   return db.oneOrNone(sql, [
     solicitud_alumno.nombre,
@@ -492,9 +507,11 @@ User.PostAdeudo = (solicitud_alumno) => {
     solicitud_alumno.profesor,
     solicitud_alumno.estatus,
     solicitud_alumno.correo,
-
     solicitud_alumno.fecha_peticion,
     solicitud_alumno.fecha_entrega,
+    solicitud_alumno.otro,
+    solicitud_alumno.otro_name,
+    solicitud_alumno.otro_motivo,
   ]);
 };
 

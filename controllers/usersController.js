@@ -318,6 +318,9 @@ module.exports = {
       const materia = req.body.materia;
       const nombre = req.body.nombre;
       const profesor = req.body.profesor;
+      const otro = req.body.otro;
+      const otro_name = req.body.otro_name;
+      const otro_motivo = req.body.otro_motivo;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
@@ -333,6 +336,9 @@ module.exports = {
         profesor: profesor,
         idequipo: idequipo,
         estatus: estatus,
+        otro: otro,
+        otro_name: otro_name,
+        otro_motivo: otro_motivo,
       };
 
       const res = await User.PostAdeudo(data);

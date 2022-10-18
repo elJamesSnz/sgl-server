@@ -38,7 +38,7 @@ module.exports = (app) => {
   );
   //Update estatus adeudo con boleta y equipo
   app.post("/api/users/UpdateEstatus", UsersController.UpdateEstatus);
-  //Update estatus adeudo con boleta y equipo
+  //Update  adeudo con boleta y equipo
   app.post("/api/users/UpdateAdeudo", UsersController.UpdateAdeudo);
 
   /*
