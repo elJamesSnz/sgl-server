@@ -202,9 +202,9 @@ module.exports = {
   },
   async DebtByBoleta(req, res, next) {
     try {
-      const Boleta = req.query.Boleta;
-      console.log(Boleta);
-      const data = await User.DebtByBoleta(Boleta);
+      const boleta = req.query.boleta;
+      console.log(boleta);
+      const data = await User.DebtByBoleta(boleta);
       return res.status(201).json({
         success: true,
         message: "Adeudos por Boleta recuperados",
