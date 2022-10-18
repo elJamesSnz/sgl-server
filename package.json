@@ -23,7 +23,17 @@
     "nodemon": "^2.0.12",
     "passport": "^0.5.3",
     "passport-jwt": "^4.0.0",
+    "pdfmake": "^0.2.6",
     "pg": "^8.8.0",
     "pg-promise": "^10.11.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elJamesSnz/sgl-server.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/elJamesSnz/sgl-server/issues"
+  },
+  "homepage": "https://github.com/elJamesSnz/sgl-server#readme"
 }

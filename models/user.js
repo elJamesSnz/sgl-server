@@ -197,8 +197,7 @@ User.DebtByBoleta = (Boleta) => {
   SELECT
 	la.idlaboratorio,
 	la.nombre as nombrelaboratorio,
-    sa.nombre as nombrealumno,
-	sa.boleta,
+  sa.nombre as nombrealumno,
 	sa.carrera,
 	sa.correo,
 	sa.estatus,
@@ -221,9 +220,9 @@ User.DebtByBoleta = (Boleta) => {
   
   
   where 
-    sa.boleta=$'2019640377' `;
+    sa.boleta=$1 `;
 
-  return db.oneOrNone(sql, Boleta);
+  return db.manyOrNone(sql, Boleta);
 };
 
 //sentencia que recuoera todas las deudas por laboratorio con inner join
