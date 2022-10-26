@@ -39,11 +39,9 @@ users(app);
 hellos(app);
 
 const server = http.createServer(app);
-/*
-server.listen(port, "192.168.47.1" || "localhost", () => {
+server.listen(port, () => {
   console.log("Servidor iniciado en puerto: " + port);
 });
-*/
 
 app.use((err, req, res, next) => {
   console.log(err);
