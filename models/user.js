@@ -8,85 +8,83 @@ const User = {};
 //sentencia SQL que recupera todos los usurios
 User.getAll = () => {
   const sql = `
-    SELECT 
-    * 
-    FROM 
-    usuario`;
+  SELECT * FROM public."Empleados"
+  ORDER BY "Id_empleado" ASC `;
 
   return db.manyOrNone(sql);
 };
 
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
-User.getAllEquipoByLabs = (idlaboratorio) => {
+User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
 
+  SELECT
+  json_agg(
+  json_build_object( 
+  "Nombre_equipo", 
+  "Descripcion_equipo",
+  "Año_equipo",
+  "Marca_equipo",
+  "Modelo_equipo",
+  "Cams_equipo",
+  "Estado_equipo",
+  "Foto_equipo",
+  "Disponibilidad_equipo",
+  "Utilidad_equipo", 
+  "Asignatura_equipo",
+  "Practicas_equipo",
+  "Alumnos_equipo",
+  LAB."Nombre_laboratorio"
+      )
+  ) as EquipByLab
+  
+  FROM public."Equipos"
+  INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
+  ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
+  INNER join public."Laboratorios" AS LAB
+  ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
+  where "Id_laboratorio"=$5
 
-SELECT 
-  L.idlaboratorio,
-  L.nombre,
-
-json_agg(
-	json_build_object( 
-    'nombreequipo',EQ.nombre ,    
-    'code',EQ.codigo_barras,
-    'mode',EQ.modelo,
-    'ano',EQ.ano,
-    'fallo',EQ.fallo,
-    'estado',EQ.estado,
-    'name_man',EQ.nombre_manual,
-    'foto',EQ."Foto_fallo",
-    'Disponible',EQ."Disponibilidad",
-    'desc',EQ."Id_descripcion",
-    'idequipo',EQ.idequipo
-	)
-) as Equip
-	
-  FROM 
-		public.laboratorio as L
-	INNER join 
-		public.equipamiento as EQ
-	ON 
-		EQ."idLaboratorio" = L.idlaboratorio
-		
-	where L.idlaboratorio=$1
-	group by L.idlaboratorio
-
+	group by "Id_laboratorio"
   `;
 
-  return db.oneOrNone(sql, idlaboratorio);
+  return db.oneOrNone(sql, Id_laboratorio);
 };
 
-//Sentencoa que recupera todos la informacion de equipos por id laboratorio
+//Sentencoa que recupera todos los equipos de todos los laboratorios
 User.getAllEquipo = () => {
   const sql = `
 
 
-  SELECT 
-  L.idlaboratorio,
-  L.nombre,
-  EQ.nombre as nombreequipo,    
-  EQ.codigo_barras,
-  EQ.modelo,
-  EQ.ano,
-  EQ.fallo,
-  EQ.estado,
-  EQ.nombre_manual,
-  EQ."Foto_fallo",
-  EQ."Disponibilidad",
-  EQ."Id_descripcion",
-  EQ.idequipo,
-  L.nombre
+  SELECT
 
-  FROM 
-		public.laboratorio as L
-	INNER join 
-		public.equipamiento as EQ
-	ON 
-		EQ."idLaboratorio" = L.idlaboratorio
-		
 	
+"Nombre_equipo", 
+"Descripcion_equipo",
+"Año_equipo",
+"Marca_equipo",
+"Modelo_equipo",
+"Cams_equipo",
+"Estado_equipo",
+"Foto_equipo",
+"Disponibilidad_equipo",
+"Utilidad_equipo", 
+"Asignatura_equipo",
+"Practicas_equipo",
+"Alumnos_equipo",
+ "Laboratorios"."Id_laboratorio"
 
-  order by L.idlaboratorio
+
+
+FROM public."Equipos"
+INNER join public."Rel_Equipo_Laboratorios"
+ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
+INNER join public."Laboratorios" 
+ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+
+
+order by "Laboratorios"."Id_laboratorio"
+
 
   `;
 
@@ -355,21 +353,31 @@ User.Debt = (idlaboratorio) => {
 //Sentencia SQL que recupera un único usuario por email
 User.FindByEmail = (email) => {
   const sql = `
-    SELECT
-      idusuario,
-      correo,
-      nombre,
-      contraseña,
-      session_token,
-      "Id_Rol",
-      rol."Nombre"
-	
-	FROM public.usuario 
-	INNER join public."Roles" as rol
-	ON rol."idRelacionRol" = usuario."Id_Rol"
+  SELECT 
+"Id_empleado" as idusuario,
+ "Numero_empleado",
+ "Nombre_empleado", 
+ "Paterno_empleado",
+ "Materno_empleado",
+ "RFC/CURP",
+ "Correo_empleado" as correo,
+ "Session_token",
+ "Perfiles"."Descripcion",
+ "Perfiles"."Id_perfil" as Id_Rol,
+ "Contraseñas"."Contraseña" as contraseña
+
+
+ 
+	FROM public."Empleados"
+inner join public."Accesos" ON
+"Accesos"."Id_empleado_Acceso" = "Empleados"."Id_empleado"
+inner join public."Perfiles" 
+ON "Perfiles"."Id_perfil" = "Accesos"."Id_perfil_Acceso"
+inner join public."Contraseñas"
+ON "Contraseñas"."Id_empleado_contraseña" = "Empleados"."Id_empleado"
    
-    WHERE
-      correo = $1
+   where "Empleados"."Correo_empleado"=$1
+      
   `;
 
   return db.oneOrNone(sql, email);
