@@ -50,3 +50,13 @@ const server = http.createServer(app);
 server.listen(port, "192.168.47.1" || "localhost", () => {
   console.log("Servidor iniciado en puerto: " + port);
 });
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(err.status || 500).send(err.stack);
+});
+
+module.exports = {
+  app: app,
+  server: server,
+};
