@@ -37,9 +37,9 @@ app.set("port", port);
 
 users(app);
 hellos(app);
-/*
 
 const server = http.createServer(app);
+/*
 server.listen(port, "192.168.47.1" || "localhost", () => {
   console.log("Servidor iniciado en puerto: " + port);
 });
