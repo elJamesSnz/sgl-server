@@ -525,5 +525,33 @@ User.isPwMatched = (uPW, hash) => {
   return false;
 };
 
+User.updateToken = (user) => {
+  const sql = `
+    UPDATE
+      users
+    SET
+      name = $2,
+      lastname = $3
+      updated_at = $4
+    WHERE
+      id = $1
+  `;
+
+  return db.none(sql, [user.id, user.name, user.lastname, new Date()]);
+};
+
+User.updateToken = (id, token) => {
+  const sql = `
+    UPDATE
+      Empleados
+    SET
+      Session_token = $2,
+    WHERE
+      id = $1
+  `;
+
+  return db.none(sql, [id, token]);
+};
+
 //objeto para el controlador
 module.exports = User;

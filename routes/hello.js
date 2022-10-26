@@ -1,8 +1,6 @@
-const express = require("express");
+const passport = require("passport");
+//se accede al controlador
 const HelloController = require("../controllers/hello");
-
-const api = express.Router();
-
-api.get("/hello", HelloController.getHello);
-
-module.exports = api;
+module.exports = (app) => {
+  app.get("/hello", HelloController.getHello);
+};

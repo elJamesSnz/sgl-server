@@ -4,9 +4,7 @@
   "description": "SGL Server Backend App",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
@@ -18,14 +16,17 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "http": "^0.0.1-security",
+    "jose": "^4.10.3",
     "jwt-decode": "^3.1.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "passport": "^0.5.3",
+    "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
     "pdfmake": "^0.2.6",
     "pg": "^8.8.0",
-    "pg-promise": "^10.11.1"
+    "pg-promise": "^10.11.1",
+    "socket.io": "^4.5.3"
   },
   "repository": {
     "type": "git",

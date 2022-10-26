@@ -37,7 +37,11 @@ module.exports = (app) => {
     UsersController.DebtByBoletaNoAdeudo
   );
   //Update estatus adeudo con boleta y equipo
-  app.post("/api/users/UpdateEstatus", UsersController.UpdateEstatus);
+  app.post(
+    "/api/users/UpdateEstatus",
+    passport.authenticate("jwt", { session: false }),
+    UsersController.UpdateEstatus
+  );
   //Update  adeudo con boleta y equipo
   app.post("/api/users/UpdateAdeudo", UsersController.UpdateAdeudo);
 

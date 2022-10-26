@@ -73,6 +73,8 @@ module.exports = {
           session_token: `${token}`,
         };
 
+        await User.updateToken(rUser.idusuario, `${token}`);
+
         return res.status(201).json({
           success: true,
           data: data,
