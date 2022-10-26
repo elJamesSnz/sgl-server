@@ -29,14 +29,6 @@ app.use(
   })
 );
 
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: true,
-    secret: "-",
-  })
-);
-
 app.use(logger("dev"));
 
 app.disable("x-powered-by");
@@ -45,11 +37,13 @@ app.set("port", port);
 
 users(app);
 hellos(app);
+/*
 
 const server = http.createServer(app);
 server.listen(port, "192.168.47.1" || "localhost", () => {
   console.log("Servidor iniciado en puerto: " + port);
 });
+*/
 
 app.use((err, req, res, next) => {
   console.log(err);
