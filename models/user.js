@@ -21,6 +21,7 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   SELECT
   json_agg(
   json_build_object( 
+    
   "Nombre_equipo", 
   "Descripcion_equipo",
   "Año_equipo",
@@ -92,231 +93,228 @@ order by "Laboratorios"."Id_laboratorio"
 };
 
 //Sentencia Sql que solicita los laboratorios a los que tiene acceso
-User.getAllLabsPUser = (idusuario) => {
+User.getAllLabsPUser = (Id_empleado) => {
   const sql = `
   SELECT
-  u.idusuario,
-  u.nombre as nombreusuario, 
-  json_agg(
+ json_agg(
     json_build_object( 
-      'idlaboratorio', RLU.id_laboratorio,
-      'nombre',LAB.nombre
-    )
+"Laboratorios"."Id_laboratorio",
+"Laboratorios"."Nombre_laboratorio"
+ )
   ) as Labs
-  FROM 
-    public.usuario as u
-  INNER join 
-    public."Relacion_lab_user" as RLU
-  ON 
-    RLU.id_usuario = u.idusuario
-  INNER join 
-    public.laboratorio as LAB
-  ON LAB.idlaboratorio = RLU.id_laboratorio
-  where 
-    u.idusuario=$1
-  group by u.idusuario
+FROM public."Empleados"
+inner join public."Rel_Laboratorio_Empleado" 
+ON "Rel_Laboratorio_Empleado"."Id_empleado_rel" = "Empleados"."Id_empleado"
+inner join public."Laboratorios" 
+ON "Laboratorios"."Id_laboratorio" = "Rel_Laboratorio_Empleado"."Id_laboratorio_rel"
+
+where "Empleados"."Id_empleado"=$1
+  
+  group by "Empleados"."Id_empleado"
     `;
 
-  return db.oneOrNone(sql, idusuario);
+  return db.oneOrNone(sql, Id_empleado);
 };
 
 //sentencia SQL que recupera un único usuario por I_D
-User.findById = (id) => {
+User.findById = (Id_empleado) => {
   const sql = `
-    SELECT
-      idusuario,
-      correo,
-      nombre,
-      contraseña,
-      session_token      
-    FROM
-        usuario
-    WHERE
-      idusuario = $1`;
+  SELECT
+  "Correo_empleado",
+  "Numero_empleado",
+  "Nombre_empleado",
+  "Paterno_empleado",
+  "Materno_empleado",
+  "RFC/CURP",
+  "Correo_empleado", 
+  "Session_token"
+  
+  
+  FROM public."Empleados"
+  
+  where "Id_empleado"=$1;
 
-  return db.oneOrNone(sql, id);
+      `;
+
+  return db.oneOrNone(sql, Id_empleado);
 };
 
 //sentencia SQL que recupera un único usuario por I_D
 User.AllLab = () => {
   const sql = `
-  SELECT idlaboratorio, nombre
-	FROM public.laboratorio;`;
+  SELECT "Id_laboratorio", "Nombre_laboratorio"
+	FROM public."Laboratorios";`;
 
   return db.manyOrNone(sql);
 };
 
 //sentencia que recuoera deuda por laboratorio con inner join
-User.DebtByLab = (idlaboratorio) => {
+User.DebtByLab = (Id_laboratorio) => {
   const sql = `
   SELECT
-	la.idlaboratorio,
-	la.nombre,
 
-  json_agg(
+json_agg(
     json_build_object( 
-      'nombrealumno', sa.nombre,
-      'boleta', sa.boleta,
-      'carrera',sa.carrera,
-		'materia',sa.materia,
-		'profesor',sa.profesor,
-      'correo',sa.correo,
-      'estatus',sa.estatus,
-      'fecha_en',sa.fecha_entrega,
-      'fecha_pe',sa.fecha_peticion,
-      'idequipo',sa.idequipo,
-      'otro',sa.otro,
-      'otro_name',sa.otro_name,
-      'otro_motivo',sa.otro_motivo,
-      'name',la.nombre,
-      'nombreequipo',Eq.nombre,
-      'codigo',Eq.codigo_barras,
-      'modelo', Eq.modelo,		
-      'ano',Eq.ano,
-      'Foto_fallo', Eq."Foto_fallo"
-    )
+
+"Boleta_adeudo",
+"Id_laboratorio_adeudo",
+"Id_equipo_adeudo",
+"Id_componente_adeudo",
+"Fecha_alta",
+"Fecha_entrega",
+"Estatus",
+"Equipos"."Nombre_equipo",
+"Equipos"."Modelo_equipo",
+"Equipos"."Cams_equipo",
+"Equipos"."Descripcion_equipo",
+"Alumnos"."Nombre_alumno",
+"Alumnos"."Materno_alumno",
+"Alumnos"."Paterno_alumno"
+
+		)
   ) as Adeudo
-  FROM 
-    public.laboratorio as la
-  INNER join 
-    public.solicitud_alumno as sa
-	ON sa.idlaboratorio = la.idlaboratorio 
-  INNER join public.equipamiento as Eq
-	ON Eq.idequipo = sa.idequipo
+	FROM public."Adeudos"
+INNER JOIN public."Equipos" 
+ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
+INNER JOIN public."Alumnos"
+ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+INNER JOIN public."Laboratorios"
+ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
+INNER JOIN public."Rel_Equipo_Laboratorios" 
+ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+	
+	where "Laboratorios"."Id_laboratorio"=$1
+	group by"Laboratorios"."Id_laboratorio" `;
 
-
-  
-  
-  where 
-    la.idlaboratorio=$1
-  group by la.idlaboratorio `;
-
-  return db.oneOrNone(sql, idlaboratorio);
+  return db.oneOrNone(sql, Id_laboratorio);
 };
 
 //sentencia que recuoera deuda por boleta
-User.DebtByBoletaAdeudo = (Boleta) => {
+
+//CHECAAAAR
+User.DebtByBoletaAdeudo = (Boleta_alumno) => {
   const sql = `
+  
   SELECT
-	la.idlaboratorio,
-	la.nombre as nombrelaboratorio,
-  sa.nombre as nombrealumno,
-	sa.carrera,
-	sa.correo,
-  sa.materia,
-  sa.boleta,
-	sa.profesor,
-	sa.fecha_entrega,
-	sa.fecha_peticion,
-	sa.idequipo,
-  sa.otro,
-  sa.otro_name,
-  sa.otro_motivo,
-	Eq.nombre nombreequipo,
-	Eq.codigo_barras,
-	Eq.modelo,		
-	Eq.ano,
-  Eq."Foto_fallo"
 
-  FROM 
-    public.laboratorio as la
-  INNER join 
-    public.solicitud_alumno as sa
-	ON sa.idlaboratorio = la.idlaboratorio 
-  INNER join public.equipamiento as Eq
-	ON Eq.idequipo = sa.idequipo
-  
-  
-  where 
-    sa.boleta= $1 
-    and 
-	sa.estatus=false`;
+json_agg(
+    json_build_object( 
 
-  return db.manyOrNone(sql, Boleta);
+"Boleta_adeudo",
+"Id_laboratorio_adeudo",
+"Id_equipo_adeudo",
+"Id_componente_adeudo",
+"Fecha_alta",
+"Fecha_entrega",
+"Estatus",
+"Equipos"."Nombre_equipo",
+"Equipos"."Modelo_equipo",
+"Equipos"."Cams_equipo",
+"Equipos"."Descripcion_equipo",
+"Alumnos"."Nombre_alumno",
+"Alumnos"."Materno_alumno",
+"Alumnos"."Paterno_alumno"
+
+		)
+  ) as Adeudo
+	FROM public."Adeudos"
+INNER JOIN public."Equipos" 
+ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
+INNER JOIN public."Alumnos"
+ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+INNER JOIN public."Laboratorios"
+ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
+INNER JOIN public."Rel_Equipo_Laboratorios" 
+ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+	
+	where "Alumnos"."Boleta_alumno"=$1
+ and "Adeudos"."Estatus"=FALSE`;
+
+  return db.manyOrNone(sql, Boleta_alumno);
 };
 //sentencia que recuoera no deuda por boleta
-User.DebtByBoletaNoAdeudo = (Boleta) => {
+User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   const sql = `
   SELECT
-	la.idlaboratorio,
-	la.nombre as nombrelaboratorio,
-  sa.nombre as nombrealumno,
-	sa.carrera,
-	sa.correo,
-  sa.boleta,
-  sa.materia,
-	sa.profesor,
-	sa.fecha_entrega,
-	sa.fecha_peticion,
-	sa.idequipo,
-  sa.otro,
-  sa.otro_name,
-  sa.otro_motivo,
-	Eq.nombre nombreequipo,
-	Eq.codigo_barras,
-	Eq.modelo,		
-	Eq.ano,
-  Eq."Foto_fallo"
 
-  FROM 
-    public.laboratorio as la
-  INNER join 
-    public.solicitud_alumno as sa
-	ON sa.idlaboratorio = la.idlaboratorio 
-  INNER join public.equipamiento as Eq
-	ON Eq.idequipo = sa.idequipo
+  json_agg(
+      json_build_object( 
   
+  "Boleta_adeudo",
+  "Id_laboratorio_adeudo",
+  "Id_equipo_adeudo",
+  "Id_componente_adeudo",
+  "Fecha_alta",
+  "Fecha_entrega",
+  "Estatus",
+  "Equipos"."Nombre_equipo",
+  "Equipos"."Modelo_equipo",
+  "Equipos"."Cams_equipo",
+  "Equipos"."Descripcion_equipo",
+  "Alumnos"."Nombre_alumno",
+  "Alumnos"."Materno_alumno",
+  "Alumnos"."Paterno_alumno"
   
-  where 
-    sa.boleta= $1 
-    and 
-	sa.estatus=true`;
+      )
+    ) as Adeudo
+    FROM public."Adeudos"
+  INNER JOIN public."Equipos" 
+  ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
+  INNER JOIN public."Alumnos"
+  ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+  INNER JOIN public."Laboratorios"
+  ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
+  INNER JOIN public."Rel_Equipo_Laboratorios" 
+  ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+    
+    where "Alumnos"."Boleta_alumno"=$1
+   and "Adeudos"."Estatus"=TRUE`;
 
-  return db.manyOrNone(sql, Boleta);
+  return db.manyOrNone(sql, Boleta_alumno);
 };
 
 //sentencia que recuoera todas las deudas por laboratorio con inner join
 User.AllDebts = () => {
   const sql = `
   SELECT
-	la.idlaboratorio,
-	la.nombre as nombrelaboratorio,
-  sa.nombre as nombrealumno,
-  sa.boleta,
-  sa.carrera,
-  sa.correo,
-  sa.materia,
-	sa.profesor,
-  sa.estatus,
-  sa.fecha_entrega,
-  sa.fecha_peticion,
-  sa.idequipo,
-  sa.otro,
-  sa.otro_name,
-  sa.otro_motivo,
-  Eq.nombre as nombreequipo,
-  Eq.codigo_barras,
-  Eq.modelo,		
-  Eq.ano,
-  Eq."Foto_fallo"
 
-  FROM 
-    public.laboratorio as la
-  INNER join 
-    public.solicitud_alumno as sa
-	ON sa.idlaboratorio = la.idlaboratorio 
-  INNER join public.equipamiento as Eq
-	ON Eq.idequipo = sa.idequipo
+json_agg(
+    json_build_object( 
 
+"Boleta_adeudo",
+"Id_laboratorio_adeudo",
+"Id_equipo_adeudo",
+"Id_componente_adeudo",
+"Fecha_alta",
+"Fecha_entrega",
+"Estatus",
+"Equipos"."Nombre_equipo",
+"Equipos"."Modelo_equipo",
+"Equipos"."Cams_equipo",
+"Equipos"."Descripcion_equipo",
+"Alumnos"."Nombre_alumno",
+"Alumnos"."Materno_alumno",
+"Alumnos"."Paterno_alumno"
 
-    
-  order by la.idlaboratorio
+		)
+  ) as Adeudo
+	FROM public."Adeudos"
+INNER JOIN public."Equipos" 
+ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
+INNER JOIN public."Alumnos"
+ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+INNER JOIN public."Laboratorios"
+ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
+INNER JOIN public."Rel_Equipo_Laboratorios" 
+ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+
   `;
 
   return db.manyOrNone(sql);
 };
 
 //sentencia que recuoera deuda por laboratorio sin inner join
+//CHECAAAAAR
 User.Debt = (idlaboratorio) => {
   const sql = `
   SELECT 
@@ -383,41 +381,48 @@ ON "Contraseñas"."Id_empleado_contraseña" = "Empleados"."Id_empleado"
   return db.oneOrNone(sql, email);
 };
 
-User.UpdateEstatus = (boleta, idequipo) => {
+User.UpdateEstatus = (Boleta_adeudo, Id_equipo_adeudo) => {
   const sql = `
-  UPDATE public.solicitud_alumno
-	SET  estatus=true
-	WHERE
-   boleta= $1
-	and 
-  idequipo= $2;
+  UPDATE public."Adeudos"
+	SET 
+ "Estatus"=TRUE
+	WHERE 
+	"Boleta_adeudo"=$1
+	AND
+	"Id_equipo_adeudo"=$2;
+
+	
   `;
 
-  return db.manyOrNone(sql, [boleta, idequipo]);
+  return db.manyOrNone(sql, [Boleta_adeudo, Id_equipo_adeudo]);
 };
 
 User.UpdateAdeudo = (
-  correo,
-  fecha_peticion,
-  fecha_entrega,
-  boleta,
-  idequipo
+  Fecha_alta,
+  Fecha_entrega,
+  Boleta_adeudo,
+  Id_equipo_adeudo
 ) => {
   const sql = `
-  UPDATE public.solicitud_alumno
-	SET   correo=$1, fecha_peticion=$2, fecha_entrega=$3
+
+
+  UPDATE public."Adeudos"
+	SET   
+	"Fecha_alta"=$1,
+	"Fecha_entrega"=$2
+	
+	
 	WHERE 
-	boleta=$4
+	"Adeudos"."Boleta_adeudo"=$3
 	and
-	idequipo=$5;
+	"Adeudos"."Id_equipo_adeudo"=$4;
   `;
 
   return db.manyOrNone(sql, [
-    correo,
-    fecha_peticion,
-    fecha_entrega,
-    boleta,
-    idequipo,
+    Fecha_alta,
+    Fecha_entrega,
+    Boleta_adeudo,
+    Id_equipo_adeudo,
   ]);
 };
 
@@ -449,77 +454,73 @@ User.create = (user) => {
   ]);
 };
 
-User.PostEquipo = (equipamiento) => {
+User.PostEquipo = (Equipos) => {
   const sql = `
     INSERT INTO
-      equipamiento(
+    Equipos(
+
+        "Nombre_equipo" as nombre,
+        "Descripcion_equipo" as fallo,
+        "Año_equipo" as ano,
+        "Marca_equipo",
+        "Modelo_equipo" as modelo,
+        "Cams_equipo" as codigo_barras,
+        "Estado_equipo" as estado,
+        "Foto_equipo" as Foto_fallo,
+        "Disponibilidad_equipo" as Disponibilidad,
+        "Utilidad_equipo",
+        "Asignatura_equipo",
+        "Practicas_equipo",
+        "Alumnos_equipo")
             
-            nombre,
-            codigo_barras,
-            modelo,
-            ano,
-            fallo,
-            estado,
-            nombre_manual,
-            "idLaboratorio",
-            "Foto_fallo",
-            "Disponibilidad",
-            "Partida"
+            
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,  $11) returning idequipo
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,  $11, $12, $13) returning "Id_equipo"
     `;
   return db.oneOrNone(sql, [
-    equipamiento.nombre,
-    equipamiento.codigo_barras,
-    equipamiento.modelo,
-    equipamiento.ano,
-    equipamiento.fallo,
-    equipamiento.estado,
-    equipamiento.nombre_manual,
-    equipamiento.idLaboratorio,
-    equipamiento.Foto_fallo,
-    equipamiento.Disponibilidad,
-    equipamiento.Partida,
+    Equipos.Nombre_equipo,
+    Equipos.Descripcion_equipo,
+    Equipos.Año_equipo,
+    Equipos.Marca_equipo,
+    Equipos.Modelo_equipo,
+    Equipos.Cams_equipo,
+    Equipos.Estado_equipo,
+    Equipos.Foto_equipo,
+    Equipos.Disponibilidad_equipo,
+    Equipos.Utilidad_equipo,
+    Equipos.Asignatura_equipo,
+    Equipos.Practicas_equipo,
+    Equipos.Alumnos_equipo,
   ]);
 };
 
-User.PostAdeudo = (solicitud_alumno) => {
+User.PostAdeudo = (Adeudos) => {
   const sql = `
     INSERT INTO
-    solicitud_alumno(
-            
-      nombre,
-      boleta,
-      carrera,
-      idlaboratorio,
-      idequipo,
-      materia,
-      profesor,
-      estatus,
-      correo,
-      fecha_peticion,
-      fecha_entrega,
-      otro,
-      otro_name,
-      otro_motivo
+    "Adeudos"(
+
+
+
+      "Boleta_adeudo" as boleta, 
+      "Id_laboratorio_adeudo" as idlaboratorio,
+      "Id_equipo_adeudo" as idequipo, 
+      "Id_componente_adeudo",
+      "Fecha_alta" as fecha_peticion,
+      "Fecha_entrega" as fecha_entrega,
+      "Estatus"      
+    
+      
         )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12, $13, $14) returning idsolicitud
+    VALUES($1, $2, $3, $4, $5, $6, $7) returning "Id_adeudo"
     `;
   return db.oneOrNone(sql, [
-    solicitud_alumno.nombre,
-    solicitud_alumno.boleta,
-    solicitud_alumno.carrera,
-    solicitud_alumno.idlaboratorio,
-    solicitud_alumno.idequipo,
-    solicitud_alumno.materia,
-    solicitud_alumno.profesor,
-    solicitud_alumno.estatus,
-    solicitud_alumno.correo,
-    solicitud_alumno.fecha_peticion,
-    solicitud_alumno.fecha_entrega,
-    solicitud_alumno.otro,
-    solicitud_alumno.otro_name,
-    solicitud_alumno.otro_motivo,
+    Adeudos.Boleta_adeudo,
+    Adeudos.Id_laboratorio_adeudo,
+    Adeudos.Id_equipo_adeudo,
+    Adeudos.Id_componente_adeudo,
+    Adeudos.Fecha_alta,
+    Adeudos.Fecha_entrega,
+    Adeudos.Estatus,
   ]);
 };
 
@@ -531,34 +532,6 @@ User.isPwMatched = (uPW, hash) => {
     return true;
   }
   return false;
-};
-
-User.updateToken = (user) => {
-  const sql = `
-    UPDATE
-      users
-    SET
-      name = $2,
-      lastname = $3
-      updated_at = $4
-    WHERE
-      id = $1
-  `;
-
-  return db.none(sql, [user.id, user.name, user.lastname, new Date()]);
-};
-
-User.updateToken = (id, token) => {
-  const sql = `
-    UPDATE
-      Empleados
-    SET
-      Session_token = $2,
-    WHERE
-      id = $1
-  `;
-
-  return db.none(sql, [id, token]);
 };
 
 //objeto para el controlador
