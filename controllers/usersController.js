@@ -118,7 +118,6 @@ module.exports = {
     try {
       const id = req.query.idLab;
       const data = await User.getAllEquipoByLabs(id);
-      console.log(data);
       return res.status(201).json({
         success: true,
         message: "Laboratorio y equipos recuperados",
@@ -173,7 +172,7 @@ module.exports = {
       const data = await User.AllDebts();
       return res.status(201).json({
         success: true,
-        message: "Adeudos  recuperados",
+        message: "Adeudos recuperados",
         data: data,
       });
     } catch (error) {
@@ -188,7 +187,6 @@ module.exports = {
   async DebtByLab(req, res, next) {
     try {
       const id = req.query.idLab;
-      console.log(id);
       const data = await User.DebtByLab(id);
       return res.status(201).json({
         success: true,
