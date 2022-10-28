@@ -41,7 +41,7 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
 
   `;
 
-  return db.oneOrNone(sql, Id_laboratorio);
+  return db.manyOrNone(sql, Id_laboratorio);
 };
 
 //Sentencoa que recupera todos los equipos de todos los laboratorios
@@ -173,7 +173,7 @@ User.DebtByLab = (Id_laboratorio) => {
     
     where "Laboratorios"."Id_laboratorio"=$1`;
 
-  return db.oneOrNone(sql, Id_laboratorio);
+  return db.manyOrNone(sql, Id_laboratorio);
 };
 
 //sentencia que recuoera deuda por boleta
