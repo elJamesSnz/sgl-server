@@ -44,6 +44,7 @@ module.exports = {
       const password = req.body.password;
       //Se busca el usuario por el email recibido
       const rUser = await User.FindByEmail(email);
+      console.log(rUser);
       //si no hay usuario con ese email
 
       if (!rUser) {
