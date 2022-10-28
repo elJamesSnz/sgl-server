@@ -32,14 +32,13 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   "Practicas_equipo",
   "Alumnos_equipo",
   LAB."Nombre_laboratorio"
-      
-  
   FROM public."Equipos"
   INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
   ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
   INNER join public."Laboratorios" AS LAB
   ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
   where "Id_laboratorio"=$1
+
   `;
 
   return db.oneOrNone(sql, Id_laboratorio);
@@ -146,33 +145,33 @@ User.DebtByLab = (Id_laboratorio) => {
   const sql = `
   SELECT
 
-"Boleta_adeudo",
-"Id_laboratorio_adeudo",
-"Id_equipo_adeudo",
-"Id_componente_adeudo",
-"Fecha_alta",
-"Fecha_entrega",
-"Estatus",
-"Equipos"."Nombre_equipo",
-"Equipos"."Modelo_equipo",
-"Equipos"."Cams_equipo",
-"Equipos"."Descripcion_equipo",
-"Alumnos"."Nombre_alumno",
-"Alumnos"."Materno_alumno",
-"Alumnos"."Paterno_alumno"
-
-	
-	FROM public."Adeudos"
-INNER JOIN public."Equipos" 
-ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
-INNER JOIN public."Alumnos"
-ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
-INNER JOIN public."Laboratorios"
-ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
-INNER JOIN public."Rel_Equipo_Laboratorios" 
-ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
-	
-	where "Laboratorios"."Id_laboratorio"=$1`;
+  "Boleta_adeudo",
+  "Id_laboratorio_adeudo",
+  "Id_equipo_adeudo",
+  "Id_componente_adeudo",
+  "Fecha_alta",
+  "Fecha_entrega",
+  "Estatus",
+  "Equipos"."Nombre_equipo",
+  "Equipos"."Modelo_equipo",
+  "Equipos"."Cams_equipo",
+  "Equipos"."Descripcion_equipo",
+  "Alumnos"."Nombre_alumno",
+  "Alumnos"."Materno_alumno",
+  "Alumnos"."Paterno_alumno"
+  
+    
+  FROM public."Adeudos"
+  INNER JOIN public."Equipos" 
+  ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
+  INNER JOIN public."Alumnos"
+  ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+  INNER JOIN public."Laboratorios"
+  ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
+  INNER JOIN public."Rel_Equipo_Laboratorios" 
+  ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+    
+    where "Laboratorios"."Id_laboratorio"=$1`;
 
   return db.oneOrNone(sql, Id_laboratorio);
 };
