@@ -44,7 +44,7 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
   INNER join public."Laboratorios" AS LAB
   ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
-  where "Id_laboratorio"=$5
+  where "Id_laboratorio"=$1
 
 	group by "Id_laboratorio"
   `;
