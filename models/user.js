@@ -17,11 +17,7 @@ User.getAll = () => {
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
-
-  SELECT
-  json_agg(
-  json_build_object( 
-    
+  SELECT     
   "Nombre_equipo", 
   "Descripcion_equipo",
   "Año_equipo",
@@ -36,8 +32,7 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   "Practicas_equipo",
   "Alumnos_equipo",
   LAB."Nombre_laboratorio"
-      )
-  ) as EquipByLab
+      
   
   FROM public."Equipos"
   INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
@@ -45,8 +40,6 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   INNER join public."Laboratorios" AS LAB
   ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
   where "Id_laboratorio"=$1
-
-	group by "Id_laboratorio"
   `;
 
   return db.oneOrNone(sql, Id_laboratorio);
@@ -153,9 +146,6 @@ User.DebtByLab = (Id_laboratorio) => {
   const sql = `
   SELECT
 
-json_agg(
-    json_build_object( 
-
 "Boleta_adeudo",
 "Id_laboratorio_adeudo",
 "Id_equipo_adeudo",
@@ -171,8 +161,7 @@ json_agg(
 "Alumnos"."Materno_alumno",
 "Alumnos"."Paterno_alumno"
 
-		)
-  ) as Adeudo
+	
 	FROM public."Adeudos"
 INNER JOIN public."Equipos" 
 ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
@@ -183,8 +172,7 @@ ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
 INNER JOIN public."Rel_Equipo_Laboratorios" 
 ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
 	
-	where "Laboratorios"."Id_laboratorio"=$1
-	group by"Laboratorios"."Id_laboratorio" `;
+	where "Laboratorios"."Id_laboratorio"=$1`;
 
   return db.oneOrNone(sql, Id_laboratorio);
 };
