@@ -361,7 +361,7 @@ User.FindByEmail = (email) => {
  "Correo_empleado" as correo,
  "Session_token",
  "Perfiles"."Descripcion",
- "Perfiles"."Id_perfil" as Id_Rol,
+ "Perfiles"."Id_perfil" as id_rol,
  "Contraseñas"."Contraseña" as contraseña
 
 
