@@ -4,7 +4,7 @@ function getHello(req, res) {
   const token = req.headers["authorization"];
 
   //token, clave, callback
-  jwt.verify(String(token), "asd", (err, user) => {
+  jwt.verify(String(token), process.env.secretOrKey, (err, user) => {
     if (err) {
       res.status(403).json({ msg: "No autorizado" });
     } else {
