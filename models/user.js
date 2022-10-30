@@ -41,6 +41,37 @@ FROM public."Estados_Equipos" `;
 
   return db.oneOrNone(sql);
 };
+User.getProfesores = () => {
+  const sql = `
+  SELECT 
+ "Nombre_empleado",
+  "Paterno_empleado",
+  "Materno_empleado"
+
+	FROM public."Empleados"
+	inner join public."Accesos" 
+	ON "Accesos"."Id_empleado_Acceso" = "Empleados"."Id_empleado"
+	
+	where "Accesos"."Id_empleado_Acceso"=4 ; `;
+
+  return db.oneOrNone(sql);
+};
+User.getMaterias = () => {
+  const sql = `
+  SELECT "Id_asignatura", "Nombre_asignatura"
+	FROM public."Asignaturas"; `;
+
+  return db.oneOrNone(sql);
+};
+
+User.getPracticas = () => {
+  const sql = `
+  SELECT "Id_practicas", "Nombre_practicas"
+	FROM public."Practicas"; `;
+
+  return db.oneOrNone(sql);
+};
+
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `

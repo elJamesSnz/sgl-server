@@ -10,6 +10,9 @@ module.exports = (app) => {
 
   app.get("/api/users/getEstadosEquipo", UsersController.getEstadosEquipo);
   app.get("/api/users/getEstadosAdeudo", UsersController.getEstadosAdeudo);
+  app.get("/api/users/getProfesores", UsersController.getProfesores);
+  app.get("/api/users/getMaterias", UsersController.getMaterias);
+  app.get("/api/users/getPracticas", UsersController.getPracticas);
 
   //GET para traer profesores x laboratorio
   app.get("/api/users/getMe", UsersController.findById);
