@@ -52,7 +52,9 @@ User.getAllEquipo = () => {
   const sql = `
 
 
-  SELECT     
+  SELECT
+
+	
   "Nombre_equipo", 
   "Descripcion_equipo",
   "Año_equipo",
@@ -70,11 +72,14 @@ User.getAllEquipo = () => {
   LAB."Nombre_laboratorio",
   LAB."Id_laboratorio"
 
-  FROM public."Equipos"
-  INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
-  ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
-  INNER join public."Laboratorios" AS LAB
-  ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
+
+
+FROM public."Equipos"
+INNER join public."Rel_Equipo_Laboratorios"
+ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
+INNER join public."Laboratorios" 
+ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+
 
 order by "Laboratorios"."Id_laboratorio"
 
