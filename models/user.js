@@ -31,7 +31,10 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   "Asignatura_equipo",
   "Practicas_equipo",
   "Alumnos_equipo",
-  LAB."Nombre_laboratorio"
+  "Manual_equipo",
+  LAB."Nombre_laboratorio",
+  LAB."Id_laboratorio"
+
   FROM public."Equipos"
   INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
   ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
@@ -176,9 +179,6 @@ User.DebtByLab = (Id_laboratorio) => {
   return db.manyOrNone(sql, Id_laboratorio);
 };
 
-//sentencia que recuoera deuda por boleta
-
-//CHECAAAAR
 User.DebtByBoletaAdeudo = (Boleta_alumno) => {
   const sql = `
   
@@ -295,7 +295,6 @@ User.AllDebts = () => {
 };
 
 //sentencia que recuoera deuda por laboratorio sin inner join
-//CHECAAAAAR
 User.Debt = (idlaboratorio) => {
   const sql = `
   SELECT 

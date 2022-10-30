@@ -71,7 +71,6 @@ User.getPracticas = () => {
 
   return db.oneOrNone(sql);
 };
-
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
