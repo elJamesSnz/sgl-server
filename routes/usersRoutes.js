@@ -8,6 +8,9 @@ module.exports = (app) => {
   //GET para traer datos
   app.get("/api/users/getAll", UsersController.getAll);
 
+  app.get("/api/users/getEstadosEquipo", UsersController.getEstadosEquipo);
+  app.get("/api/users/getEstadosAdeudo", UsersController.getEstadosAdeudo);
+
   //GET para traer profesores x laboratorio
   app.get("/api/users/getMe", UsersController.findById);
 

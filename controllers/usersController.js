@@ -96,6 +96,7 @@ module.exports = {
       });
     }
   },
+
   async findById(req, res, next) {
     try {
       const id = req.query.idUser;
@@ -118,10 +119,12 @@ module.exports = {
     try {
       const id = req.query.idLab;
       const data = await User.getAllEquipoByLabs(id);
+      const data2 = await User.getEstadosEquipo();
+      dataFinal = { data, data2 };
       return res.status(201).json({
         success: true,
         message: "Laboratorio y equipos recuperados",
-        data: data,
+        data: dataFinal,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -170,10 +173,13 @@ module.exports = {
   async AllDebts(req, res, next) {
     try {
       const data = await User.AllDebts();
+      const data2 = await User.getEstadosAdeudo();
+      const data3 = await User.getEstadosEquipo();
+      dataFinal = { data, data2, data3 };
       return res.status(201).json({
         success: true,
         message: "Adeudos recuperados",
-        data: data,
+        data: dataFinal,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -188,10 +194,13 @@ module.exports = {
     try {
       const id = req.query.idLab;
       const data = await User.DebtByLab(id);
+      const data2 = await User.getEstadosAdeudo();
+      const data3 = await User.getEstadosEquipo();
+      dataFinal = { data, data2, data3 };
       return res.status(201).json({
         success: true,
         message: "Adeudos por laboratorios recuperados",
-        data: data,
+        data: dataFinal,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -206,10 +215,14 @@ module.exports = {
       const boleta = req.query.boleta;
       console.log(boleta);
       const data = await User.DebtByBoletaAdeudo(boleta);
+      const data2 = await User.getEstadosAdeudo();
+      const data3 = await User.getEstadosEquipo();
+      dataFinal = { data, data2, data3 };
+
       return res.status(201).json({
         success: true,
         message: "Adeudos por Boleta recuperados",
-        data: data,
+        data: dataFinal,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -244,10 +257,13 @@ module.exports = {
       const id = req.query.idLab;
       console.log(id);
       const data = await User.Debt(id);
+      const data2 = await User.getEstadosAdeudo();
+      const data3 = await User.getEstadosEquipo();
+      dataFinal = { data, data2, data3 };
       return res.status(201).json({
         success: true,
         message: "Adeudos por laboratorios recuperados",
-        data: data,
+        data: dataFinal,
       });
     } catch (error) {
       console.log(`Error: ${error}`);
