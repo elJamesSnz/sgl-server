@@ -14,6 +14,64 @@ User.getAll = () => {
   return db.manyOrNone(sql);
 };
 
+//sentencia SQL que recupera todos los usurios
+User.getEstadosAdeudo = () => {
+  const sql = `
+  SELECT
+ json_agg(
+    json_build_object( 
+"Estados_Adeudo"."Id_estado_adeudo",
+"Estados_Adeudo"."Descripcion_estado_adeudo"
+ )
+  ) as EstadoAdeudo
+FROM public."Estados_Adeudo" `;
+
+  return db.oneOrNone(sql);
+};
+User.getEstadosEquipo = () => {
+  const sql = `
+  SELECT
+ json_agg(
+    json_build_object( 
+"Estados_Equipos"."Id_estado",
+"Estados_Equipos"."Descripcion_estado"
+ )
+  ) as EstadosEquipos
+FROM public."Estados_Equipos" `;
+
+  return db.oneOrNone(sql);
+};
+User.getProfesores = () => {
+  const sql = `
+  SELECT 
+ "Nombre_empleado",
+  "Paterno_empleado",
+  "Materno_empleado"
+
+	FROM public."Empleados"
+	inner join public."Accesos" 
+	ON "Accesos"."Id_empleado_Acceso" = "Empleados"."Id_empleado"
+	
+	where "Accesos"."Id_empleado_Acceso"=4 ; `;
+
+  return db.oneOrNone(sql);
+};
+User.getMaterias = () => {
+  const sql = `
+  SELECT "Id_asignatura", "Nombre_asignatura"
+	FROM public."Asignaturas"; `;
+
+  return db.oneOrNone(sql);
+};
+
+User.getPracticas = () => {
+  const sql = `
+  SELECT "Id_practicas", "Nombre_practicas"
+	FROM public."Practicas"; `;
+
+  return db.oneOrNone(sql);
+};
+
 //Sentencoa que recupera todos la informacion de equipos por id laboratorio
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
@@ -31,7 +89,10 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   "Asignatura_equipo",
   "Practicas_equipo",
   "Alumnos_equipo",
-  LAB."Nombre_laboratorio"
+  "Manual_equipo",
+  LAB."Nombre_laboratorio",
+  LAB."Id_laboratorio"
+
   FROM public."Equipos"
   INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
   ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
@@ -64,6 +125,7 @@ User.getAllEquipo = () => {
 "Utilidad_equipo", 
 "Asignatura_equipo",
 "Practicas_equipo",
+"Manual_equipo",
 "Alumnos_equipo",
  "Laboratorios"."Id_laboratorio"
 
@@ -152,10 +214,24 @@ User.DebtByLab = (Id_laboratorio) => {
   "Fecha_alta",
   "Fecha_entrega",
   "Estatus",
-  "Equipos"."Nombre_equipo",
+  
+  "Equipos"."Nombre_equipo", 
+  "Equipos"."Descripcion_equipo",
+  "Equipos"."Año_equipo",
+  "Equipos"."Marca_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
-  "Equipos"."Descripcion_equipo",
+  "Equipos"."Estado_equipo",
+  "Equipos"."Foto_equipo",
+  "Equipos"."Disponibilidad_equipo",
+  "Equipos"."Utilidad_equipo", 
+  "Equipos"."Asignatura_equipo",
+  "Equipos"."Practicas_equipo",
+  "Equipos"."Manual_equipo",
+  "Equipos"."Alumnos_equipo",
+
+
+
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno"
@@ -194,10 +270,25 @@ json_agg(
 "Fecha_alta",
 "Fecha_entrega",
 "Estatus",
-"Equipos"."Nombre_equipo",
-"Equipos"."Modelo_equipo",
-"Equipos"."Cams_equipo",
-"Equipos"."Descripcion_equipo",
+
+  "Equipos"."Nombre_equipo", 
+  "Equipos"."Descripcion_equipo",
+  "Equipos"."Año_equipo",
+  "Equipos"."Marca_equipo",
+  "Equipos"."Modelo_equipo",
+  "Equipos"."Cams_equipo",
+  "Equipos"."Estado_equipo",
+  "Equipos"."Foto_equipo",
+  "Equipos"."Disponibilidad_equipo",
+  "Equipos"."Utilidad_equipo", 
+  "Equipos"."Asignatura_equipo",
+  "Equipos"."Practicas_equipo",
+  "Equipos"."Manual_equipo",
+  "Equipos"."Alumnos_equipo",
+
+
+
+
 "Alumnos"."Nombre_alumno",
 "Alumnos"."Materno_alumno",
 "Alumnos"."Paterno_alumno"
@@ -234,10 +325,24 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Fecha_alta",
   "Fecha_entrega",
   "Estatus",
-  "Equipos"."Nombre_equipo",
+  "Equipos"."Nombre_equipo", 
+  "Equipos"."Descripcion_equipo",
+  "Equipos"."Año_equipo",
+  "Equipos"."Marca_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
-  "Equipos"."Descripcion_equipo",
+  "Equipos"."Estado_equipo",
+  "Equipos"."Foto_equipo",
+  "Equipos"."Disponibilidad_equipo",
+  "Equipos"."Utilidad_equipo", 
+  "Equipos"."Asignatura_equipo",
+  "Equipos"."Practicas_equipo",
+  "Equipos"."Manual_equipo",
+  "Equipos"."Alumnos_equipo",
+
+
+
+
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno"
@@ -272,10 +377,24 @@ User.AllDebts = () => {
   "Fecha_alta",
   "Fecha_entrega",
   "Estatus",
-  "Equipos"."Nombre_equipo",
+
+
+  "Equipos"."Nombre_equipo", 
+  "Equipos"."Descripcion_equipo",
+  "Equipos"."Año_equipo",
+  "Equipos"."Marca_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
-  "Equipos"."Descripcion_equipo",
+  "Equipos"."Estado_equipo",
+  "Equipos"."Foto_equipo",
+  "Equipos"."Disponibilidad_equipo",
+  "Equipos"."Utilidad_equipo", 
+  "Equipos"."Asignatura_equipo",
+  "Equipos"."Practicas_equipo",
+  "Equipos"."Manual_equipo",
+  "Equipos"."Alumnos_equipo",
+
+
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno"		
