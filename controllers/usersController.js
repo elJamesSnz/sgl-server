@@ -7,7 +7,6 @@ module.exports = {
   async getAll(req, res, next) {
     try {
       const data = await User.getAll();
-      console.log(`Usuarios: ${data}`);
       return res.status(201).json(data);
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -131,6 +130,23 @@ module.exports = {
       });
     }
   },
+  async getEstadosEquipo(req, res, next) {
+    try {
+      const data = await User.getEstadosEquipo();
+      return res.status(201).json({
+        success: true,
+        message: "Estados de equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error en funcionalidades: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener estados de equipos",
+      });
+    }
+  },
+
   async getAllEquipo(req, res, next) {
     try {
       const data = await User.getAllEquipo();

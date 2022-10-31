@@ -31,15 +31,12 @@ FROM public."Estados_Adeudo" `;
 User.getEstadosEquipo = () => {
   const sql = `
   SELECT
- json_agg(
-    json_build_object( 
-"Estados_Equipos"."Id_estado",
-"Estados_Equipos"."Descripcion_estado"
- )
-  ) as EstadosEquipos
-FROM public."Estados_Equipos" `;
+  "Estados_Equipos"."Id_estado",
+  "Estados_Equipos"."Descripcion_estado"
+  FROM public."Estados_Equipos"
+ `;
 
-  return db.oneOrNone(sql);
+  return db.manyOrNone(sql);
 };
 User.getProfesores = () => {
   const sql = `

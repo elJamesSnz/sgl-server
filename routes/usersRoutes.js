@@ -11,6 +11,9 @@ module.exports = (app) => {
   //GET para traer profesores x laboratorio
   app.get("/api/users/getMe", UsersController.findById);
 
+  //GET al estados posibles para equipamiento
+  app.get("/api/users/getEstadosEquipo", UsersController.getEstadosEquipo);
+
   //GET para traer equipamiento x laboratorio
   app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
 

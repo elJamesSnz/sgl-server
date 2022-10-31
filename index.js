@@ -6,7 +6,7 @@ const http = require("http");
 
 const users = require("./routes/usersRoutes");
 const hellos = require("./routes/hello");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5555;
 
 const app = express();
 

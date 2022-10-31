@@ -14,77 +14,13 @@ User.getAll = () => {
   return db.manyOrNone(sql);
 };
 
-//Sentencoa que recupera todos la informacion de equipos por id laboratorio
-User.getAllEquipoByLabs = (Id_laboratorio) => {
+User.getEstadosEquipo = () => {
   const sql = `
-  SELECT     
-  "Nombre_equipo", 
-  "Descripcion_equipo",
-  "Año_equipo",
-  "Marca_equipo",
-  "Modelo_equipo",
-  "Cams_equipo",
-  "Estado_equipo",
-  "Foto_equipo",
-  "Disponibilidad_equipo",
-  "Utilidad_equipo", 
-  "Asignatura_equipo",
-  "Practicas_equipo",
-  "Alumnos_equipo",
-  "Manual_equipo",
-  LAB."Nombre_laboratorio",
-  LAB."Id_laboratorio"
-
-  FROM public."Equipos"
-  INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
-  ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
-  INNER join public."Laboratorios" AS LAB
-  ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
-  where "Id_laboratorio"=$1
-
-  `;
-
-  return db.manyOrNone(sql, Id_laboratorio);
-};
-
-//Sentencoa que recupera todos los equipos de todos los laboratorios
-User.getAllEquipo = () => {
-  const sql = `
-
-
   SELECT
-
-	
-  "Nombre_equipo", 
-  "Descripcion_equipo",
-  "Año_equipo",
-  "Marca_equipo",
-  "Modelo_equipo",
-  "Cams_equipo",
-  "Estado_equipo",
-  "Foto_equipo",
-  "Disponibilidad_equipo",
-  "Utilidad_equipo", 
-  "Asignatura_equipo",
-  "Practicas_equipo",
-  "Alumnos_equipo",
-  "Manual_equipo",
-  "Laboratorios"."Nombre_laboratorio",
-  "Laboratorios"."Id_laboratorio"
-
-
-
-FROM public."Equipos"
-INNER join public."Rel_Equipo_Laboratorios"
-ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
-INNER join public."Laboratorios" 
-ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
-
-
-order by "Laboratorios"."Id_laboratorio"
-
-
-  `;
+  "Estados_Equipos"."Id_estado",
+  "Estados_Equipos"."Descripcion_estado"
+  FROM public."Estados_Equipos"
+ `;
 
   return db.manyOrNone(sql);
 };
@@ -433,46 +369,6 @@ User.create = (user) => {
     user.password,
     new Date(),
     new Date(),
-  ]);
-};
-
-User.PostEquipo = (Equipos) => {
-  const sql = `
-    INSERT INTO
-    Equipos(
-
-        "Nombre_equipo" as nombre,
-        "Descripcion_equipo" as fallo,
-        "Año_equipo" as ano,
-        "Marca_equipo",
-        "Modelo_equipo" as modelo,
-        "Cams_equipo" as codigo_barras,
-        "Estado_equipo" as estado,
-        "Foto_equipo" as Foto_fallo,
-        "Disponibilidad_equipo" as Disponibilidad,
-        "Utilidad_equipo",
-        "Asignatura_equipo",
-        "Practicas_equipo",
-        "Alumnos_equipo")
-            
-            
-        )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,  $11, $12, $13) returning "Id_equipo"
-    `;
-  return db.oneOrNone(sql, [
-    Equipos.Nombre_equipo,
-    Equipos.Descripcion_equipo,
-    Equipos.Año_equipo,
-    Equipos.Marca_equipo,
-    Equipos.Modelo_equipo,
-    Equipos.Cams_equipo,
-    Equipos.Estado_equipo,
-    Equipos.Foto_equipo,
-    Equipos.Disponibilidad_equipo,
-    Equipos.Utilidad_equipo,
-    Equipos.Asignatura_equipo,
-    Equipos.Practicas_equipo,
-    Equipos.Alumnos_equipo,
   ]);
 };
 
