@@ -25,6 +25,78 @@ User.getEstadosEquipo = () => {
   return db.manyOrNone(sql);
 };
 
+User.getAllEquipoByLabs = (Id_laboratorio) => {
+  const sql = `
+  SELECT     
+  "Nombre_equipo", 
+  "Descripcion_equipo",
+  "Año_equipo",
+  "Marca_equipo",
+  "Modelo_equipo",
+  "Cams_equipo",
+  "Estado_equipo",
+  "Foto_equipo",
+  "Disponibilidad_equipo",
+  "Utilidad_equipo", 
+  "Asignatura_equipo",
+  "Practicas_equipo",
+  "Alumnos_equipo",
+  "Manual_equipo",
+  LAB."Nombre_laboratorio",
+  LAB."Id_laboratorio"
+
+  FROM public."Equipos"
+  INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
+  ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
+  INNER join public."Laboratorios" AS LAB
+  ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
+  where "Id_laboratorio"=$1
+
+  `;
+
+  return db.manyOrNone(sql, Id_laboratorio);
+};
+
+User.getAllEquipo = () => {
+  const sql = `
+
+
+  SELECT
+
+	
+"Nombre_equipo", 
+"Descripcion_equipo",
+"Año_equipo",
+"Marca_equipo",
+"Modelo_equipo",
+"Cams_equipo",
+"Estado_equipo",
+"Foto_equipo",
+"Disponibilidad_equipo",
+"Utilidad_equipo", 
+"Asignatura_equipo",
+"Practicas_equipo",
+"Manual_equipo",
+"Alumnos_equipo",
+ "Laboratorios"."Id_laboratorio"
+
+
+
+FROM public."Equipos"
+INNER join public."Rel_Equipo_Laboratorios"
+ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
+INNER join public."Laboratorios" 
+ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+
+
+order by "Laboratorios"."Id_laboratorio"
+
+
+  `;
+
+  return db.manyOrNone(sql);
+};
+
 //Sentencia Sql que solicita los laboratorios a los que tiene acceso
 User.getAllLabsPUser = (Id_empleado) => {
   const sql = `
