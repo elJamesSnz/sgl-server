@@ -100,7 +100,7 @@ User.getAllEquipo = () => {
 "Practicas_equipo",
 "Manual_equipo",
 "Alumnos_equipo",
-"Laboratorios"."Id_laboratorio"
+"Laboratorios"."Id_laboratorio",
 "Laboratorios"."Nombre_laboratorio"
 
 
