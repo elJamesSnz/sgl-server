@@ -14,6 +14,12 @@ module.exports = (app) => {
   //GET al estados posibles para equipamiento
   app.get("/api/users/getEstadosEquipo", UsersController.getEstadosEquipo);
 
+  //GET all carreras
+  app.get("/api/users/getECarreras", UsersController.getECarreras);
+
+  //GET disponibilidad equipos
+  app.get("/api/users/getDisponibilidad", UsersController.getDisponibilidad);
+
   //GET para traer equipamiento x laboratorio
   app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
 

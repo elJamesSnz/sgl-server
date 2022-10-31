@@ -147,6 +147,40 @@ module.exports = {
     }
   },
 
+  async getECarreras(req, res, next) {
+    try {
+      const data = await User.getECarreras();
+      return res.status(201).json({
+        success: true,
+        message: "Carreras recuperadas",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error en funcionalidades: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener Carreras",
+      });
+    }
+  },
+
+  async getDisponibilidad(req, res, next) {
+    try {
+      const data = await User.getDisponibilidad();
+      return res.status(201).json({
+        success: true,
+        message: "Disponibilidad recuperada",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error en funcionalidades: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener Disponibilidad",
+      });
+    }
+  },
+
   async getAllEquipo(req, res, next) {
     try {
       const data = await User.getAllEquipo();

@@ -25,6 +25,28 @@ User.getEstadosEquipo = () => {
   return db.manyOrNone(sql);
 };
 
+User.getECarreras = () => {
+  const sql = `
+  SELECT 
+  "Id_carrera", 
+  "Nombre_carrera"
+	FROM public."Carreras";
+ `;
+
+  return db.manyOrNone(sql);
+};
+
+User.getDisponibilidad = () => {
+  const sql = `
+  SELECT
+   "Id_disponibilidad_equipo",
+   "Descripcion"
+	FROM public."Disponibilidad_Equipos";
+ `;
+
+  return db.manyOrNone(sql);
+};
+
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
   SELECT     
