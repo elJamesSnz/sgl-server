@@ -405,29 +405,37 @@ User.Debt = (idlaboratorio) => {
   
   json_agg(
     json_build_object( 
-      'nombre',SA.nombre,    
-      'boleta',SA.boleta,
-      'carrera',SA.carrera,
-      'idlaboratorio',SA.idlaboratorio,
-      'idequipo',SA.idequipo,
-      'materia',SA.materia,
-      'profesor',SA.profesor,
-      'estatus',SA."estatus",
-      'correo',SA.correo,
-      'fecha_peticion',SA.fecha_peticion,
-      'fecha_entrega',SA.fecha_entrega,
-      'otro',SA.otro,
-      'otro_name',SA.otro_name,
-      'otro_motivo',SA.otro_motivo
+     "Asignatura_adeudo",
+      "Boleta_adeudo",
+      "Carreras"."Nombre_carrera",
+      "Id_laboratorio_adeudo",
+	 "Laboratorios"."Nombre_laboratorio",
+    "Id_equipo_adeudo",
+    "Adeudos"."Asignatura_adeudo",
+    "Empleados"."Nombre_empleado",
+    "Estados_Adeudo"."Descripcion_estado_adeudo",
+    "Alumnos"."Correo_alumno",
+    "Adeudos"."Fecha_alta",
+     "Adeudos"."Fecha_entrega"
+     
     )
   ) as Debt
 
-	FROM public.solicitud_alumno as SA
+	FROM public."Adeudos" 
+	INNER JOIN public."Alumnos" 
+	ON "Alumnos"."Boleta_alumno" = "Adeudos"."Boleta_adeudo"
+	INNER JOIN public."Carreras"
+	ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
+	INNER JOIN public."Empleados" 
+	ON "Empleados"."Id_empleado" = "Adeudos"."Id_profesor_adeudo"
+	INNER JOIN public."Estados_Adeudo" 
+	ON "Estados_Adeudo"."Id_estado_adeudo" = "Adeudos"."Estatus_adeudo"
+	inner join public."Laboratorios"
+	ON "Laboratorios"."Id_laboratorio"="Adeudos"."Id_laboratorio_adeudo"
   
   
   where 
-    idlaboratorio=$1
-  group by idlaboratorio `;
+    "Adeudos"."Id_laboratorio_adeudo"=$1`;
 
   return db.oneOrNone(sql, idlaboratorio);
 };
