@@ -194,7 +194,9 @@ User.DebtByLab = (Id_laboratorio) => {
   "Equipos"."Descripcion_equipo",
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
-  "Alumnos"."Paterno_alumno"
+  "Alumnos"."Paterno_alumno",
+  "Alumnos"."Correo_alumno",
+  "Carreras"."Nombre_carrera"
   
     
   FROM public."Adeudos"
@@ -206,6 +208,8 @@ User.DebtByLab = (Id_laboratorio) => {
   ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
   INNER JOIN public."Rel_Equipo_Laboratorios" 
   ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+  inner join public."Carreras"
+  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
     
     where "Laboratorios"."Id_laboratorio"=$1`;
 
@@ -233,7 +237,9 @@ json_agg(
 "Equipos"."Descripcion_equipo",
 "Alumnos"."Nombre_alumno",
 "Alumnos"."Materno_alumno",
-"Alumnos"."Paterno_alumno"
+"Alumnos"."Paterno_alumno",
+"Alumnos"."Correo_alumno",
+"Carreras"."Nombre_carrera"
 
 		)
   ) as Adeudo
@@ -246,6 +252,8 @@ INNER JOIN public."Laboratorios"
 ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
 INNER JOIN public."Rel_Equipo_Laboratorios" 
 ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+inner join public."Carreras"
+  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
 	
 	where "Alumnos"."Boleta_alumno"=$1
  and "Adeudos"."Estatus"=FALSE`;
@@ -273,7 +281,9 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Equipos"."Descripcion_equipo",
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
-  "Alumnos"."Paterno_alumno"
+  "Alumnos"."Paterno_alumno",
+  "Alumnos"."Correo_alumno",
+  "Carreras"."Nombre_carrera"
   
       )
     ) as Adeudo
@@ -286,6 +296,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
   INNER JOIN public."Rel_Equipo_Laboratorios" 
   ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
+  inner join public."Carreras"
+  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
     
     where "Alumnos"."Boleta_alumno"=$1
    and "Adeudos"."Estatus"=TRUE`;
@@ -311,7 +323,9 @@ User.AllDebts = () => {
   "Equipos"."Descripcion_equipo",
   "Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
-  "Alumnos"."Paterno_alumno"		
+  "Alumnos"."Paterno_alumno",
+  "Alumnos"."Correo_alumno",
+  "Carreras"."Nombre_carrera"
   as Adeudo
   FROM public."Adeudos"
   INNER JOIN public."Equipos" 
@@ -321,7 +335,9 @@ User.AllDebts = () => {
   INNER JOIN public."Laboratorios"
   ON "Laboratorios"."Id_laboratorio" = "Adeudos"."Id_laboratorio_adeudo"
   INNER JOIN public."Rel_Equipo_Laboratorios" 
-  ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"      
+  ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio" 
+  inner join public."Carreras"
+  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"     
   `;
 
   return db.manyOrNone(sql);
