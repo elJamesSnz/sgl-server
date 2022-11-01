@@ -224,7 +224,8 @@ User.DebtByLab = (Id_laboratorio) => {
   "Carreras"."Nombre_carrera",
   "Empleados"."Nombre_empleado",
   "Empleados"."Materno_empleado",
-  "Empleados"."Paterno_empleado"
+  "Empleados"."Paterno_empleado",
+  "Laboratorios"."Nombre_laboratorio"
   
     
   FROM public."Adeudos"
@@ -272,7 +273,8 @@ json_agg(
 "Carreras"."Nombre_carrera",
 "Empleados"."Nombre_empleado",
 "Empleados"."Materno_empleado",
-"Empleados"."Paterno_empleado"
+"Empleados"."Paterno_empleado",
+"Laboratorios"."Nombre_laboratorio"
 
 		)
   ) as Adeudo
@@ -321,7 +323,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Carreras"."Nombre_carrera",
   "Empleados"."Nombre_empleado",
   "Empleados"."Materno_empleado",
-  "Empleados"."Paterno_empleado"
+  "Empleados"."Paterno_empleado",
+  "Laboratorios"."Nombre_laboratorio"
   
       )
     ) as Adeudo
