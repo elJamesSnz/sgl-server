@@ -378,7 +378,11 @@ User.AllDebts = () => {
   "Alumnos"."Correo_alumno",
   "Carreras"."Nombre_carrera",
   "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
-  "Asignatura_adeudo"
+  "Asignatura_adeudo",
+  "Empleados"."Nombre_empleado",
+  "Laboratorios"."Nombre_laboratorio"
+
+  
   as Adeudo
   FROM public."Adeudos"
   INNER JOIN public."Equipos" 
@@ -393,6 +397,9 @@ User.AllDebts = () => {
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"    
   inner join public."Estados_Adeudo"
   ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo" 
+
+  INNER JOIN public."Empleados" 
+	ON "Empleados"."Id_empleado" = "Adeudos"."Id_profesor_adeudo"
   `;
 
   return db.manyOrNone(sql);
