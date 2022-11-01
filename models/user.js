@@ -221,7 +221,10 @@ User.DebtByLab = (Id_laboratorio) => {
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
-  "Carreras"."Nombre_carrera"
+  "Carreras"."Nombre_carrera",
+  "Empleados"."Nombre_empleado",
+  "Empleados"."Materno_empleado",
+  "Empleados"."Paterno_empleado"
   
     
   FROM public."Adeudos"
@@ -235,6 +238,8 @@ User.DebtByLab = (Id_laboratorio) => {
   ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
   inner join public."Carreras"
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
+  inner join public."Empleados"  
+  ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
     
     where "Laboratorios"."Id_laboratorio"=$1`;
 
@@ -264,7 +269,10 @@ json_agg(
 "Alumnos"."Materno_alumno",
 "Alumnos"."Paterno_alumno",
 "Alumnos"."Correo_alumno",
-"Carreras"."Nombre_carrera"
+"Carreras"."Nombre_carrera",
+"Empleados"."Nombre_empleado",
+"Empleados"."Materno_empleado",
+"Empleados"."Paterno_empleado"
 
 		)
   ) as Adeudo
@@ -279,6 +287,8 @@ INNER JOIN public."Rel_Equipo_Laboratorios"
 ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
 inner join public."Carreras"
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
+  inner join public."Empleados"  
+  ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
 	
 	where "Alumnos"."Boleta_alumno"=$1
  and "Adeudos"."Estatus"=FALSE`;
@@ -308,7 +318,10 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
-  "Carreras"."Nombre_carrera"
+  "Carreras"."Nombre_carrera",
+  "Empleados"."Nombre_empleado",
+  "Empleados"."Materno_empleado",
+  "Empleados"."Paterno_empleado"
   
       )
     ) as Adeudo
@@ -323,6 +336,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio"
   inner join public."Carreras"
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
+  inner join public."Empleados"  
+  ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
     
     where "Alumnos"."Boleta_alumno"=$1
    and "Adeudos"."Estatus"=TRUE`;
