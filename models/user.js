@@ -372,7 +372,7 @@ User.AllDebts = () => {
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
   "Equipos"."Descripcion_equipo",
-  "Alumnos"."Nombre_alumno",
+"Alumnos"."Nombre_alumno",
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
@@ -397,7 +397,6 @@ User.AllDebts = () => {
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"    
   inner join public."Estados_Adeudo"
   ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo" 
-
   INNER JOIN public."Empleados" 
 	ON "Empleados"."Id_empleado" = "Adeudos"."Id_profesor_adeudo"
   `;
