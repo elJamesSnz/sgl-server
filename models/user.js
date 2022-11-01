@@ -212,7 +212,6 @@ User.DebtByLab = (Id_laboratorio) => {
   "Id_componente_adeudo",
   "Fecha_alta",
   "Fecha_entrega",
-  "Estatus",
   "Equipos"."Nombre_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
@@ -225,7 +224,8 @@ User.DebtByLab = (Id_laboratorio) => {
   "Empleados"."Nombre_empleado",
   "Empleados"."Materno_empleado",
   "Empleados"."Paterno_empleado",
-  "Laboratorios"."Nombre_laboratorio"
+  "Laboratorios"."Nombre_laboratorio",
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
   
     
   FROM public."Adeudos"
@@ -241,6 +241,8 @@ User.DebtByLab = (Id_laboratorio) => {
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
   inner join public."Empleados"  
   ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
+  inner join public."Estados_Adeudo"
+  ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo"
     
     where "Laboratorios"."Id_laboratorio"=$1`;
 
@@ -261,7 +263,6 @@ json_agg(
 "Id_componente_adeudo",
 "Fecha_alta",
 "Fecha_entrega",
-"Estatus",
 "Equipos"."Nombre_equipo",
 "Equipos"."Modelo_equipo",
 "Equipos"."Cams_equipo",
@@ -274,7 +275,8 @@ json_agg(
 "Empleados"."Nombre_empleado",
 "Empleados"."Materno_empleado",
 "Empleados"."Paterno_empleado",
-"Laboratorios"."Nombre_laboratorio"
+"Laboratorios"."Nombre_laboratorio",
+"Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
 
 		)
   ) as Adeudo
@@ -291,6 +293,8 @@ inner join public."Carreras"
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
   inner join public."Empleados"  
   ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
+  inner join public."Estados_Adeudo"
+  ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo"
 	
 	where "Alumnos"."Boleta_alumno"=$1
  and "Adeudos"."Estatus"=FALSE`;
@@ -311,7 +315,6 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Id_componente_adeudo",
   "Fecha_alta",
   "Fecha_entrega",
-  "Estatus",
   "Equipos"."Nombre_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
@@ -324,7 +327,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Empleados"."Nombre_empleado",
   "Empleados"."Materno_empleado",
   "Empleados"."Paterno_empleado",
-  "Laboratorios"."Nombre_laboratorio"
+  "Laboratorios"."Nombre_laboratorio",
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
   
       )
     ) as Adeudo
@@ -341,6 +345,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"
   inner join public."Empleados"  
   ON "Empleados"."Id_empleado"="Adeudos"."Id_profesor_adeudo"
+  inner join public."Estados_Adeudo"
+  ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo"
     
     where "Alumnos"."Boleta_alumno"=$1
    and "Adeudos"."Estatus"=TRUE`;
@@ -359,7 +365,6 @@ User.AllDebts = () => {
   "Id_componente_adeudo",
   "Fecha_alta",
   "Fecha_entrega",
-  "Estatus",
   "Equipos"."Nombre_equipo",
   "Equipos"."Modelo_equipo",
   "Equipos"."Cams_equipo",
@@ -368,7 +373,8 @@ User.AllDebts = () => {
   "Alumnos"."Materno_alumno",
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
-  "Carreras"."Nombre_carrera"
+  "Carreras"."Nombre_carrera",
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
   as Adeudo
   FROM public."Adeudos"
   INNER JOIN public."Equipos" 
@@ -380,7 +386,9 @@ User.AllDebts = () => {
   INNER JOIN public."Rel_Equipo_Laboratorios" 
   ON "Rel_Equipo_Laboratorios"."Id_laboratorio_rel" = "Laboratorios"."Id_laboratorio" 
   inner join public."Carreras"
-  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"     
+  ON "Carreras"."Id_carrera" = "Alumnos"."Id_carrera"    
+  inner join public."Estados_Adeudo"
+  ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo" 
   `;
 
   return db.manyOrNone(sql);
