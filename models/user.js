@@ -49,29 +49,46 @@ User.getDisponibilidad = () => {
 
 User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
-  SELECT     
-  "Nombre_equipo", 
-  "Descripcion_equipo",
-  "Año_equipo",
-  "Marca_equipo",
-  "Modelo_equipo",
-  "Cams_equipo",
-  "Estado_equipo",
-  "Foto_equipo",
-  "Disponibilidad_equipo",
-  "Utilidad_equipo", 
-  "Asignatura_equipo",
-  "Practicas_equipo",
-  "Alumnos_equipo",
-  "Manual_equipo",
-  LAB."Nombre_laboratorio",
-  LAB."Id_laboratorio"
+  SELECT
 
-  FROM public."Equipos"
-  INNER join public."Rel_Equipo_Laboratorios" AS Rel_LAB
-  ON Rel_LAB."Id_equipo_rel" = "Equipos"."Id_equipo"
-  INNER join public."Laboratorios" AS LAB
-  ON LAB."Id_laboratorio" = Rel_LAB."Id_laboratorio_rel"
+	
+"Nombre_equipo", 
+"Descripcion_equipo",
+"Año_equipo",
+"Marca_equipo",
+"Modelo_equipo",
+"Cams_equipo",
+"Estado_equipo",
+"Foto_equipo",
+"Disponibilidad_equipo",
+"Utilidad_equipo", 
+"Asignatura_equipo",
+"Practicas_equipo",
+"Manual_equipo",
+"Alumnos_equipo",
+"Descripcion_fallo_equipo",
+"Laboratorios"."Id_laboratorio",
+"Laboratorios"."Nombre_laboratorio",
+"Estados_Equipos"."Descripcion_estado",
+"Disponibilidad_Equipos"."Descripcion"
+  
+
+
+
+FROM public."Equipos"
+INNER join public."Rel_Equipo_Laboratorios"
+ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
+INNER join public."Laboratorios" 
+ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+INNER JOIN public."Estados_Equipos" 
+ON "Estados_Equipos"."Id_estado" = "Equipos"."Estado_equipo"
+INNER JOIN public."Disponibilidad_Equipos" 
+ON "Disponibilidad_Equipos"."Id_disponibilidad_equipo" = "Equipos"."Disponibilidad_equipo"
+
+
+
+
+
   where "Id_laboratorio"=$1
 
   `;
@@ -100,8 +117,12 @@ User.getAllEquipo = () => {
 "Practicas_equipo",
 "Manual_equipo",
 "Alumnos_equipo",
+"Descripcion_fallo_equipo",
 "Laboratorios"."Id_laboratorio",
-"Laboratorios"."Nombre_laboratorio"
+"Laboratorios"."Nombre_laboratorio",
+"Estados_Equipos"."Descripcion_estado",
+"Disponibilidad_Equipos"."Descripcion"
+  
 
 
 
@@ -110,6 +131,10 @@ INNER join public."Rel_Equipo_Laboratorios"
 ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
 INNER join public."Laboratorios" 
 ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+INNER JOIN public."Estados_Equipos" 
+ON "Estados_Equipos"."Id_estado" = "Equipos"."Estado_equipo"
+INNER JOIN public."Disponibilidad_Equipos" 
+ON "Disponibilidad_Equipos"."Id_disponibilidad_equipo" = "Equipos"."Disponibilidad_equipo"
 
 
 order by "Laboratorios"."Id_laboratorio"
