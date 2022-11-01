@@ -225,7 +225,8 @@ User.DebtByLab = (Id_laboratorio) => {
   "Empleados"."Materno_empleado",
   "Empleados"."Paterno_empleado",
   "Laboratorios"."Nombre_laboratorio",
-  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
+  "Asignatura_adeudo"
   
     
   FROM public."Adeudos"
@@ -276,7 +277,8 @@ json_agg(
 "Empleados"."Materno_empleado",
 "Empleados"."Paterno_empleado",
 "Laboratorios"."Nombre_laboratorio",
-"Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
+"Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
+"Asignatura_adeudo"
 
 		)
   ) as Adeudo
@@ -328,7 +330,8 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
   "Empleados"."Materno_empleado",
   "Empleados"."Paterno_empleado",
   "Laboratorios"."Nombre_laboratorio",
-  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
+  "Asignatura_adeudo"
   
       )
     ) as Adeudo
@@ -374,7 +377,8 @@ User.AllDebts = () => {
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
   "Carreras"."Nombre_carrera",
-  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus
+  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
+  "Asignatura_adeudo"
   as Adeudo
   FROM public."Adeudos"
   INNER JOIN public."Equipos" 
