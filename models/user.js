@@ -51,45 +51,53 @@ User.getAllEquipoByLabs = (Id_laboratorio) => {
   const sql = `
   SELECT
 
-	
-"Nombre_equipo", 
-"Descripcion_equipo",
-"Año_equipo",
-"Marca_equipo",
-"Modelo_equipo",
-"Cams_equipo",
-"Estado_equipo",
-"Foto_equipo",
-"Disponibilidad_equipo",
-"Utilidad_equipo", 
-"Asignatura_equipo",
-"Practicas_equipo",
-"Manual_equipo",
-"Alumnos_equipo",
-"Descripcion_fallo_equipo",
-"Laboratorios"."Id_laboratorio",
-"Laboratorios"."Nombre_laboratorio",
-"Estados_Equipos"."Descripcion_estado",
-"Disponibilidad_Equipos"."Descripcion"
+  "Id_equipo",
+  "Nombre_equipo", 
+  "Descripcion_equipo",
+  "Año_equipo",
+  "Marca_equipo",
+  "Modelo_equipo",
+  "Cams_equipo",
+  "Estado_equipo",
+  "Foto_equipo",
+  "Disponibilidad_equipo",
+  "Utilidad_equipo", 
+  "Asignatura_equipo",
+  "Practicas_equipo",
+  "Manual_equipo",
+  "Alumnos_equipo",
+  "Descripcion_fallo_equipo",
+  "Laboratorios"."Id_laboratorio",
+  "Laboratorios"."Nombre_laboratorio",
+  "Estados_Equipos"."Descripcion_estado",
+  "Disponibilidad_Equipos"."Descripcion"
+    
   
-
-
-
-FROM public."Equipos"
-INNER join public."Rel_Equipo_Laboratorios"
-ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
-INNER join public."Laboratorios" 
-ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
-INNER JOIN public."Estados_Equipos" 
-ON "Estados_Equipos"."Id_estado" = "Equipos"."Estado_equipo"
-INNER JOIN public."Disponibilidad_Equipos" 
-ON "Disponibilidad_Equipos"."Id_disponibilidad_equipo" = "Equipos"."Disponibilidad_equipo"
-
-
-
-
-
+  
+  
+  FROM public."Equipos"
+  INNER join public."Rel_Equipo_Laboratorios"
+  ON "Rel_Equipo_Laboratorios"."Id_equipo_rel" = "Equipos"."Id_equipo"
+  INNER join public."Laboratorios" 
+  ON "Laboratorios"."Id_laboratorio" = "Rel_Equipo_Laboratorios"."Id_laboratorio_rel"
+  INNER JOIN public."Estados_Equipos" 
+  ON "Estados_Equipos"."Id_estado" = "Equipos"."Estado_equipo"
+  INNER JOIN public."Disponibilidad_Equipos" 
+  ON "Disponibilidad_Equipos"."Id_disponibilidad_equipo" = "Equipos"."Disponibilidad_equipo"
+  
+  
+  
+  
+  
   where "Id_laboratorio"=$1
+    
+    and  "Visualizacion_equipo"=1
+
+
+
+
+
+
 
   `;
 
@@ -102,7 +110,7 @@ User.getAllEquipo = () => {
 
   SELECT
 
-	
+  "Id_equipo",
 "Nombre_equipo", 
 "Descripcion_equipo",
 "Año_equipo",
@@ -136,8 +144,9 @@ ON "Estados_Equipos"."Id_estado" = "Equipos"."Estado_equipo"
 INNER JOIN public."Disponibilidad_Equipos" 
 ON "Disponibilidad_Equipos"."Id_disponibilidad_equipo" = "Equipos"."Disponibilidad_equipo"
 
-
+where  "Visualizacion_equipo"=1
 order by "Laboratorios"."Id_laboratorio"
+
 
 
   `;
@@ -245,11 +254,14 @@ User.DebtByLab = (Id_laboratorio) => {
   inner join public."Estados_Adeudo"
   ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo"
     
-    where "Laboratorios"."Id_laboratorio"=$1`;
+    where "Laboratorios"."Id_laboratorio"=$1
+    and "Visualizacion_adeudo"=1
+    
+    `;
 
   return db.manyOrNone(sql, Id_laboratorio);
 };
-
+//CHECAR
 User.DebtByBoletaAdeudo = (Boleta_alumno) => {
   const sql = `
   
@@ -299,7 +311,10 @@ inner join public."Carreras"
   ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo"
 	
 	where "Alumnos"."Boleta_alumno"=$1
- and "Adeudos"."Estatus"=FALSE`;
+ and "Adeudos"."Estatus"=FALSE
+ and "Visualizacion_adeudo"=1
+ 
+ `;
 
   return db.manyOrNone(sql, Boleta_alumno);
 };
@@ -400,6 +415,8 @@ User.AllDebts = () => {
   ON "Estados_Adeudo"."Id_estado_adeudo"="Adeudos"."Estatus_adeudo" 
   INNER JOIN public."Empleados" 
 	ON "Empleados"."Id_empleado" = "Adeudos"."Id_profesor_adeudo"
+
+  where "Visualizacion_adeudo"=1
   `;
 
   return db.manyOrNone(sql);
@@ -442,7 +459,9 @@ User.Debt = (idlaboratorio) => {
   
   
   where 
-    "Adeudos"."Id_laboratorio_adeudo"=$1`;
+    "Adeudos"."Id_laboratorio_adeudo"=$1
+    and  "Visualizacion_adeudo"=1
+    `;
 
   return db.oneOrNone(sql, idlaboratorio);
 };
