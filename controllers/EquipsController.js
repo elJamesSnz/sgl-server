@@ -58,7 +58,7 @@ module.exports = {
       } else {
         //otra petición insert
         const rRelLabEquipo = await Equip.PostEquipoRelLab(
-          rEquip.id_equipo,
+          rEquip.Id_equipo,
           reIdLab
         );
       }
