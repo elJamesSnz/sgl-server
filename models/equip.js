@@ -5,7 +5,7 @@ const db = require("../config/config");
 
 const Equip = {};
 
-User.PostEquipo = (equip) => {
+Equip.PostEquipo = (equip) => {
   const sql = `
   INSERT INTO public."Equipos"(
 	
@@ -45,7 +45,7 @@ User.PostEquipo = (equip) => {
   ]);
 };
 
-User.PostEquipoRelLab = (Id_equipo, Id_laboratorio_rel) => {
+Equip.PostEquipoRelLab = (Id_equipo, Id_laboratorio_rel) => {
   const sql = `
     INSERT INTO public."Rel_Equipo_Laboratorios"(
         "Id_equipo_rel", 
@@ -56,4 +56,4 @@ User.PostEquipoRelLab = (Id_equipo, Id_laboratorio_rel) => {
 };
 
 //objeto para el controlador
-module.exports = User;
+module.exports = Equip;
