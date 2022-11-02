@@ -382,8 +382,7 @@ User.AllDebts = () => {
   "Empleados"."Nombre_empleado",
   "Laboratorios"."Nombre_laboratorio"
 
-  
-  as Adeudo
+
   FROM public."Adeudos"
   INNER JOIN public."Equipos" 
   ON "Equipos"."Id_equipo" = "Adeudos"."Id_equipo_adeudo"
