@@ -5,6 +5,7 @@ const logger = require("morgan");
 const http = require("http");
 
 const users = require("./routes/usersRoutes");
+const equips = require("./routes/equipRoutes");
 const hellos = require("./routes/hello");
 const port = process.env.PORT || 5555;
 
@@ -37,6 +38,7 @@ app.set("port", port);
 
 users(app);
 hellos(app);
+equips(app);
 
 const server = http.createServer(app);
 server.listen(port, () => {
