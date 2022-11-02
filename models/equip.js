@@ -50,9 +50,9 @@ Equip.PostEquipoRelLab = (Id_equipo, Id_laboratorio_rel) => {
     INSERT INTO public."Rel_Equipo_Laboratorios"(
         "Id_equipo_rel", 
        "Id_laboratorio_rel")
-       VALUES ( Id_equipo, $1);
+       VALUES ($1, $2);
         `;
-  return db.oneOrNone(sql, []);
+  return db.oneOrNone(sql, [Id_equipo, Id_laboratorio_rel]);
 };
 
 //objeto para el controlador

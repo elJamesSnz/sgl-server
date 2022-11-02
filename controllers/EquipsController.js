@@ -24,6 +24,7 @@ module.exports = {
       const reqDescripcion_fallo_equipo = req.body.Descripcion_fallo_equipo;
       const reqAsignatura_equipo = req.body.Asignatura_equipo;
       const reqPracticas_equipo = req.body.Practicas_equipo;
+      const reIdLab = req.body.Id_laboratorio;
 
       //se hace objeto para el modelo Equip
       const ReqEquip = {
@@ -56,11 +57,14 @@ module.exports = {
         });
       } else {
         //otra petición insert
-        //const rRelLabEquipo = await Equip.PostEquipoRelLab(rEquip.id_equipo);
+        const rRelLabEquipo = await Equip.PostEquipoRelLab(
+          rEquip.id_equipo,
+          reIdLab
+        );
       }
       return res.status(201).json({
         success: true,
-        data: data,
+        data: rEquip.Id_equipo,
         message: "Equipamiento agregado correctamente",
       });
     } catch (error) {
@@ -78,13 +82,11 @@ module.exports = {
 
       const reqNombre_equipo = req.body.Id_equipo_rel;
       const reqDescripcion_equipo = req.body.Descripcion_equipo;
-      
 
       //se hace objeto para el modelo Equip
       const ReqEquip = {
         Id_equipo_rel: reqNombre_equipo,
         Descripcion_equipo: reqDescripcion_equipo,
-      
       };
 
       //Petición a DB de PostEquipo que retorna Id_equipo
