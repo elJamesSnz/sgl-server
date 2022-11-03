@@ -23,7 +23,10 @@ Equip.PostEquipo = (equip) => {
 	"Disponibilidad_equipo",
 	"Descripcion_fallo_equipo",
 	"Asignatura_equipo",
-	"Practicas_equipo")
+	"Practicas_equipo",
+    "Visualizacion_equipo"
+    
+    )
 	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "Id_equipo";
       `;
   return db.oneOrNone(sql, [

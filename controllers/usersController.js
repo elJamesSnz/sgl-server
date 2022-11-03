@@ -358,38 +358,31 @@ module.exports = {
   async PostAdeudo(req, res, next) {
     try {
       //Se recuperan las variables del body de la request
-      const boleta = req.body.boleta;
-      const carrera = req.body.carrera;
-      const correo = req.body.correo;
-      const estatus = req.body.estatus;
-      const fecha_entrega = req.body.fecha_entrega;
-      const fecha_peticion = req.body.fecha_peticion;
-      const idequipo = req.body.idequipo;
-      const idlaboratorio = req.body.idlaboratorio;
-      const materia = req.body.materia;
-      const nombre = req.body.nombre;
-      const profesor = req.body.profesor;
-      const otro = req.body.otro;
-      const otro_name = req.body.otro_name;
-      const otro_motivo = req.body.otro_motivo;
+
+      const reqBoleta_adeudo = req.body.Boleta_adeudo;
+      const reqId_laboratorio_adeudo = req.body.Id_laboratorio_adeudo;
+      const reqId_equipo_adeudo = req.body.Id_equipo_adeudo;
+      const reqId_componente_adeudo = req.body.Id_componente_adeudo;
+      const reqFecha_alta = req.body.Fecha_alta;
+      const reqFecha_entrega = req.body.Fecha_entrega;
+      const reqId_profesor_adeudo = req.body.Id_profesor_adeudo;
+      const reqAsignatura_adeudo = req.body.Asignatura_adeudo;
+      const reqEstatus_adeudo = req.body.Estatus_adeudo;
+      const reqVisualizacion_adeudo = req.body.Visualizacion_adeudo;
 
       //si la contraseña enviada por el usuario es igual a la cifrada en DB
 
       const data = {
-        nombre: nombre,
-        boleta: boleta,
-        carrera: carrera,
-        correo: correo,
-        fecha_peticion: fecha_peticion,
-        fecha_entrega: fecha_entrega,
-        idlaboratorio: idlaboratorio,
-        materia: materia,
-        profesor: profesor,
-        idequipo: idequipo,
-        estatus: estatus,
-        otro: otro,
-        otro_name: otro_name,
-        otro_motivo: otro_motivo,
+        Boleta_adeudo: reqBoleta_adeudo,
+        Id_laboratorio_adeudo: reqId_laboratorio_adeudo,
+        Id_equipo_adeudo: reqId_equipo_adeudo,
+        Id_componente_adeudo: reqId_componente_adeudo,
+        Fecha_alta: reqFecha_alta,
+        Fecha_entrega: reqFecha_entrega,
+        Id_profesor_adeudo: reqId_profesor_adeudo,
+        Asignatura_adeudo: reqAsignatura_adeudo,
+        Estatus_adeudo: reqEstatus_adeudo,
+        Visualizacion_adeudo: reqVisualizacion_adeudo,
       };
 
       const res = await User.PostAdeudo(data);
@@ -412,62 +405,6 @@ module.exports = {
       return res.status(501).json({
         success: false,
         message: "Error al ingresar adeudo",
-        error: error,
-      });
-    }
-  },
-
-  async PostEquipo(req, res, next) {
-    try {
-      //Se recuperan las variables del body de la request
-      const nombre = req.body.nombre;
-      const codigo_barras = req.body.codigo_barras;
-      const modelo = req.body.modelo;
-      const ano = req.body.ano;
-      const fallo = req.body.fallo;
-      const estado = req.body.estado;
-      const nombre_manual = req.body.nombre_manual;
-      const idLaboratorio = req.body.idLaboratorio;
-      const Foto_fallo = req.body.Foto_fallo;
-      const Disponibilidad = req.body.Disponibilidad;
-      const Partida = req.body.Partida;
-
-      //si la contraseña enviada por el usuario es igual a la cifrada en DB
-
-      const data = {
-        nombre: nombre,
-        codigo_barras: codigo_barras,
-        modelo: modelo,
-        ano: ano,
-        fallo: fallo,
-        estado: estado,
-        nombre_manual: nombre_manual,
-        idLaboratorio: idLaboratorio,
-        Foto_fallo: Foto_fallo,
-        Disponibilidad: Disponibilidad,
-        Partida: Partida,
-      };
-
-      const res = await User.PostEquipo(data);
-
-      return res.status(201).json({
-        success: true,
-        data: data,
-        message: "Ingreso correcto",
-      });
-      /*
-       else {
-        return res.status(401).json({
-          success: false,
-          message: "La contraseña es incorrecta",
-        });
-      }
-      */
-    } catch (error) {
-      console.log(`Error post equipo. ${error}`);
-      return res.status(501).json({
-        success: false,
-        message: "Error al ingresar equipo",
         error: error,
       });
     }

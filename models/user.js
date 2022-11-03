@@ -215,6 +215,7 @@ User.DebtByLab = (Id_laboratorio) => {
   const sql = `
   SELECT
 
+  "Id_adeudo",
   "Boleta_adeudo",
   "Id_laboratorio_adeudo",
   "Id_equipo_adeudo",
@@ -269,7 +270,7 @@ User.DebtByBoletaAdeudo = (Boleta_alumno) => {
 
 json_agg(
     json_build_object( 
-
+      "Id_adeudo",
 "Boleta_adeudo",
 "Id_laboratorio_adeudo",
 "Id_equipo_adeudo",
@@ -325,7 +326,7 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
 
   json_agg(
       json_build_object( 
-  
+        "Id_adeudo",
   "Boleta_adeudo",
   "Id_laboratorio_adeudo",
   "Id_equipo_adeudo",
@@ -376,7 +377,7 @@ User.DebtByBoletaNoAdeudo = (Boleta_alumno) => {
 User.AllDebts = () => {
   const sql = `
   SELECT
-
+  "Id_adeudo",
   "Boleta_adeudo",
   "Id_laboratorio_adeudo",
   "Id_equipo_adeudo",
@@ -429,6 +430,7 @@ User.Debt = (idlaboratorio) => {
   
   json_agg(
     json_build_object( 
+      "Id_adeudo",
      "Asignatura_adeudo",
       "Boleta_adeudo",
       "Carreras"."Nombre_carrera",
@@ -440,6 +442,7 @@ User.Debt = (idlaboratorio) => {
     "Estados_Adeudo"."Descripcion_estado_adeudo",
     "Alumnos"."Correo_alumno",
     "Adeudos"."Fecha_alta",
+     "Adeudos"."Fecha_entrega",
      "Adeudos"."Fecha_entrega"
      
     )
@@ -502,8 +505,8 @@ ON "Contraseñas"."Id_empleado_contraseña" = "Empleados"."Id_empleado"
 User.UpdateEstatus = (Boleta_adeudo, Id_equipo_adeudo) => {
   const sql = `
   UPDATE public."Adeudos"
-	SET 
- "Estatus"=TRUE
+	
+  SET  "Estatus_adeudo"=2
 	WHERE 
 	"Boleta_adeudo"=$1
 	AND
@@ -574,31 +577,30 @@ User.create = (user) => {
 
 User.PostAdeudo = (Adeudos) => {
   const sql = `
-    INSERT INTO
-    "Adeudos"(
-
-
-
-      "Boleta_adeudo" as boleta, 
-      "Id_laboratorio_adeudo" as idlaboratorio,
-      "Id_equipo_adeudo" as idequipo, 
-      "Id_componente_adeudo",
-      "Fecha_alta" as fecha_peticion,
-      "Fecha_entrega" as fecha_entrega,
-      "Estatus"      
-    
-      
-        )
-    VALUES($1, $2, $3, $4, $5, $6, $7) returning "Id_adeudo"
+  INSERT INTO public."Adeudos"(
+    "Boleta_adeudo", 
+   "Id_laboratorio_adeudo",
+   "Id_equipo_adeudo",
+   "Id_componente_adeudo",
+   "Fecha_alta",
+   "Fecha_entrega",
+   "Id_profesor_adeudo",
+   "Asignatura_adeudo",
+   "Estatus_adeudo",
+   "Visualizacion_adeudo")
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
     `;
   return db.oneOrNone(sql, [
-    Adeudos.Boleta_adeudo,
-    Adeudos.Id_laboratorio_adeudo,
-    Adeudos.Id_equipo_adeudo,
-    Adeudos.Id_componente_adeudo,
-    Adeudos.Fecha_alta,
-    Adeudos.Fecha_entrega,
-    Adeudos.Estatus,
+  Adeudos.Boleta_adeudo,
+  Adeudos.Id_laboratorio_adeudo,
+  Adeudos.Id_equipo_adeudo,
+  Adeudos.Id_componente_adeudo,
+  Adeudos.Fecha_alta,
+  Adeudos.Fecha_entrega,
+  Adeudos.Id_profesor_adeudo,
+  Adeudos.Asignatura_adeudo,
+  Adeudos.Estatus_adeudo,
+  Adeudos.Visualizacion_adeudo
   ]);
 };
 
