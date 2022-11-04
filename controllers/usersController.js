@@ -401,7 +401,7 @@ module.exports = {
       }
       */
     } catch (error) {
-      console.log(`Error login. ${error}`);
+      console.log(`Error adeudo. ${error}`);
       return res.status(501).json({
         success: false,
         message: "Error al ingresar adeudo",

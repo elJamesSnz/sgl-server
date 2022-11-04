@@ -393,7 +393,7 @@ User.AllDebts = () => {
   "Alumnos"."Paterno_alumno",
   "Alumnos"."Correo_alumno",
   "Carreras"."Nombre_carrera",
-  "Estados_Adeudo"."Descripcion_estado_adeudo" as Estatus,
+  "Estados_Adeudo"."Descripcion_estado_adeudo" ,
   "Asignatura_adeudo",
   "Empleados"."Nombre_empleado",
   "Empleados"."Materno_empleado",
