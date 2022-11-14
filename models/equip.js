@@ -24,10 +24,10 @@ Equip.PostEquipo = (equip) => {
 	"Descripcion_fallo_equipo",
 	"Asignatura_equipo",
 	"Practicas_equipo",
-    "Visualizacion_equipo"
+  "Visualizacion_equipo"
     
     )
-	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "Id_equipo";
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING "Id_equipo";
       `;
   return db.oneOrNone(sql, [
     equip.Nombre_equipo,
@@ -45,6 +45,7 @@ Equip.PostEquipo = (equip) => {
     equip.Descripcion_fallo_equipo,
     equip.Asignatura_equipo,
     equip.Practicas_equipo,
+    1,
   ]);
 };
 
@@ -56,6 +57,53 @@ Equip.PostEquipoRelLab = (Id_equipo, Id_laboratorio_rel) => {
        VALUES ($1, $2);
         `;
   return db.oneOrNone(sql, [Id_equipo, Id_laboratorio_rel]);
+};
+
+Equip.EditEquipo = (equip) => {
+  const sql = `
+  UPDATE
+  
+  public."Equipos"
+
+  SET
+	
+	"Nombre_equipo" = $1,
+	"Descripcion_equipo" = $2, 
+	"Año_equipo" = $3,
+	"Marca_equipo" = $4,
+	"Modelo_equipo" = $5,
+	"Cams_equipo" = $6,
+	"Estado_equipo" = $7,
+	"Foto_equipo" = $8,
+	"Utilidad_equipo" = $9,
+	"Alumnos_equipo" = $10,
+	"Manual_equipo" = $11,
+	"Disponibilidad_equipo" = $12,
+	"Descripcion_fallo_equipo" = $13,
+	"Asignatura_equipo" = $14,
+	"Practicas_equipo" = $15,
+	
+  WHERE Id_equipo = $16
+
+      `;
+  return db.oneOrNone(sql, [
+    equip.Nombre_equipo,
+    equip.Descripcion_equipo,
+    equip.Año_equipo,
+    equip.Marca_equipo,
+    equip.Modelo_equipo,
+    equip.Cams_equipo,
+    equip.Estado_equipo,
+    equip.Foto_equipo,
+    equip.Utilidad_equipo,
+    equip.Alumnos_equipo,
+    equip.Manual_equipo,
+    equip.Disponibilidad_equipo,
+    equip.Descripcion_fallo_equipo,
+    equip.Asignatura_equipo,
+    equip.Practicas_equipo,
+    equip.Id_equipo,
+  ]);
 };
 
 //objeto para el controlador
