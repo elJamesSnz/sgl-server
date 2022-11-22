@@ -547,34 +547,6 @@ User.UpdateAdeudo = (
   ]);
 };
 
-//sentencia SQL que crea nuevo usuario
-User.create = (user) => {
-  //se encripta en md5, update(pasamos el valor) digest para mantener formato hex
-  const pwHash = crypto.createHash("md5").update(user.password).digest("hex");
-
-  user.password = pwHash;
-  const sql = `
-      INSERT INTO
-        usuario(
-          email,
-          name,
-          lastname,
-          password,
-          created_at,
-          updated_at
-        )
-      VALUES($1, $2, $3, $4, $5, $6) RETURNING id
-    `;
-  return db.oneOrNone(sql, [
-    user.email,
-    user.name,
-    user.lastname,
-    user.password,
-    new Date(),
-    new Date(),
-  ]);
-};
-
 User.PostAdeudo = (Adeudos) => {
   const sql = `
   INSERT INTO public."Adeudos"(
@@ -591,16 +563,16 @@ User.PostAdeudo = (Adeudos) => {
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
     `;
   return db.oneOrNone(sql, [
-  Adeudos.Boleta_adeudo,
-  Adeudos.Id_laboratorio_adeudo,
-  Adeudos.Id_equipo_adeudo,
-  Adeudos.Id_componente_adeudo,
-  Adeudos.Fecha_alta,
-  Adeudos.Fecha_entrega,
-  Adeudos.Id_profesor_adeudo,
-  Adeudos.Asignatura_adeudo,
-  Adeudos.Estatus_adeudo,
-  Adeudos.Visualizacion_adeudo
+    Adeudos.Boleta_adeudo,
+    Adeudos.Id_laboratorio_adeudo,
+    Adeudos.Id_equipo_adeudo,
+    Adeudos.Id_componente_adeudo,
+    Adeudos.Fecha_alta,
+    Adeudos.Fecha_entrega,
+    Adeudos.Id_profesor_adeudo,
+    Adeudos.Asignatura_adeudo,
+    Adeudos.Estatus_adeudo,
+    Adeudos.Visualizacion_adeudo,
   ]);
 };
 

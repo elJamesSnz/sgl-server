@@ -368,9 +368,7 @@ module.exports = {
       const reqId_profesor_adeudo = req.body.Id_profesor_adeudo;
       const reqAsignatura_adeudo = req.body.Asignatura_adeudo;
       const reqEstatus_adeudo = req.body.Estatus_adeudo;
-      const reqVisualizacion_adeudo = req.body.Visualizacion_adeudo;
-
-      //si la contraseña enviada por el usuario es igual a la cifrada en DB
+      // const reqVisualizacion_adeudo = req.body.Visualizacion_adeudo;
 
       const data = {
         Boleta_adeudo: reqBoleta_adeudo,
@@ -382,7 +380,7 @@ module.exports = {
         Id_profesor_adeudo: reqId_profesor_adeudo,
         Asignatura_adeudo: reqAsignatura_adeudo,
         Estatus_adeudo: reqEstatus_adeudo,
-        Visualizacion_adeudo: reqVisualizacion_adeudo,
+        Visualizacion_adeudo: 1,
       };
 
       const res = await User.PostAdeudo(data);
@@ -392,14 +390,6 @@ module.exports = {
         data: data,
         message: "Ingreso correcto",
       });
-      /*
-       else {
-        return res.status(401).json({
-          success: false,
-          message: "La contraseña es incorrecta",
-        });
-      }
-      */
     } catch (error) {
       console.log(`Error adeudo. ${error}`);
       return res.status(501).json({
