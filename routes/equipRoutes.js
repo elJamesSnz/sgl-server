@@ -1,5 +1,5 @@
 //se accede al controlador
-const EquipsController = require("../controller/equipsController");
+const EquipsController = require("../controllers/equipsController");
 
 module.exports = (app) => {
   app.post("/api/equips/PostEquipo", EquipsController.PostEquipo);
