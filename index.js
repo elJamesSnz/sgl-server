@@ -6,6 +6,7 @@ const http = require("http");
 
 const users = require("./routes/usersRoutes");
 const equips = require("./routes/equipRoutes");
+const debts = require("./routes/debtsRoutes");
 const hellos = require("./routes/hello");
 const port = process.env.PORT || 5555;
 
@@ -36,9 +37,12 @@ app.disable("x-powered-by");
 
 app.set("port", port);
 
-users(app);
+//test routes
 hellos(app);
+//api routes
+users(app);
 equips(app);
+debts(app);
 
 const server = http.createServer(app);
 server.listen(port, () => {
