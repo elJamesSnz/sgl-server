@@ -204,5 +204,16 @@ Equip.getAllEquipo = () => {
   return db.manyOrNone(sql);
 };
 
+Equip.getEstadosEquipo = () => {
+  const sql = `
+  SELECT
+  "Estados_Equipos"."Id_estado",
+  "Estados_Equipos"."Descripcion_estado"
+  FROM public."Estados_Equipos"
+ `;
+
+  return db.manyOrNone(sql);
+};
+
 //objeto para el controlador
 module.exports = Equip;

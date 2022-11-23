@@ -14,17 +14,6 @@ User.getAll = () => {
   return db.manyOrNone(sql);
 };
 
-User.getEstadosEquipo = () => {
-  const sql = `
-  SELECT
-  "Estados_Equipos"."Id_estado",
-  "Estados_Equipos"."Descripcion_estado"
-  FROM public."Estados_Equipos"
- `;
-
-  return db.manyOrNone(sql);
-};
-
 User.getECarreras = () => {
   const sql = `
   SELECT 
