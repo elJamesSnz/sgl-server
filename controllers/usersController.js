@@ -328,18 +328,32 @@ module.exports = {
   },
   async UpdateAdeudo(req, res, next) {
     try {
-      const correo = req.query.correo;
-      const fecha_peticion = req.query.fecha_peticion;
-      const fecha_entrega = req.query.fecha_entrega;
-      const boleta = req.query.boleta;
-      const idequipo = req.query.idequipo;
+    
+
+      const Id_adeudo =req.query.Id_adeudo;
+      const Boleta_adeudo =req.query.Boleta_adeudo;
+      const Id_laboratorio_adeudo =req.query.Id_laboratorio_adeudo;
+      const Id_equipo_adeudo =req.query.Id_equipo_adeudo;
+      const Id_componente_adeudo =req.query.Id_componente_adeudo;
+      const Fecha_alta =req.query.Fecha_alta;
+      const Fecha_entrega =req.query.Fecha_entrega;
+      const Id_profesor_adeudo =req.query.Id_profesor_adeudo;
+      const Asignatura_adeudo =req.query.Asignatura_adeudo;
+      const Estatus_adeudo =req.query.Estatus_adeudo;
+      const Visualizacion_adeudo =req.query.Visualizacion_adeudo;
 
       const data = await User.UpdateAdeudo(
-        correo,
-        fecha_peticion,
-        fecha_entrega,
-        boleta,
-        idequipo
+      Id_adeudo,
+      Boleta_adeudo ,
+      Id_laboratorio_adeudo,
+      Id_equipo_adeudo,
+      Id_componente_adeudo ,
+      Fecha_alta ,
+      Fecha_entrega,
+      Id_profesor_adeudo ,
+      Asignatura_adeudo ,
+      Estatus_adeudo ,
+      Visualizacion_adeudo ,
       );
       return res.status(201).json({
         success: true,

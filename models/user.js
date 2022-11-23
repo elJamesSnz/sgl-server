@@ -519,24 +519,45 @@ User.UpdateEstatus = (Boleta_adeudo, Id_equipo_adeudo) => {
 };
 
 User.UpdateAdeudo = (
-  Fecha_alta,
-  Fecha_entrega,
-  Boleta_adeudo,
-  Id_equipo_adeudo
+  Id_adeudo, 
+	Boleta_adeudo,
+	Id_laboratorio_adeudo, 
+	Id_equipo_adeudo,
+	Id_componente_adeudo, 
+	Fecha_alta,
+	Fecha_entrega,
+	Id_profesor_adeudo,
+	Asignatura_adeudo, 
+	Estatus_adeudo,
+	Visualizacion_adeudo
 ) => {
   const sql = `
 
 
+ 
+
   UPDATE public."Adeudos"
-	SET   
-	"Fecha_alta"=$1,
-	"Fecha_entrega"=$2
-	
-	
-	WHERE 
-	"Adeudos"."Boleta_adeudo"=$3
+	SET
+	"Id_adeudo"=$1, 
+	"Id_laboratorio_adeudo"=$3, 
+	"Id_componente_adeudo"=$5, 
+	"Fecha_alta"=$6,
+	"Fecha_entrega"=$7,
+	"Id_profesor_adeudo"=$8,
+	"Asignatura_adeudo"=$9, 
+	"Estatus_adeudo"=$10,
+	"Visualizacion_adeudo"=$11
+
+
+  WHERE 
+	"Adeudos"."Boleta_adeudo"=$2
 	and
 	"Adeudos"."Id_equipo_adeudo"=$4;
+
+
+
+
+
   `;
 
   return db.manyOrNone(sql, [
