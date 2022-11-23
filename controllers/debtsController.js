@@ -90,7 +90,7 @@ module.exports = {
   async DebtByLab(req, res, next) {
     try {
       const id = req.query.idLab;
-      const data = await User.DebtByLab(id);
+      const data = await Debt.DebtByLab(id);
       return res.status(201).json({
         success: true,
         message: "Adeudos por laboratorios recuperados",
@@ -107,7 +107,7 @@ module.exports = {
 
   async AllDebts(req, res, next) {
     try {
-      const data = await User.AllDebts();
+      const data = await Debt.AllDebts();
       return res.status(201).json({
         success: true,
         message: "Adeudos recuperados",
@@ -126,7 +126,7 @@ module.exports = {
     try {
       const boleta = req.query.boleta;
       console.log(boleta);
-      const data = await User.DebtByBoletaAdeudo(boleta);
+      const data = await Debt.DebtByBoletaAdeudo(boleta);
       return res.status(201).json({
         success: true,
         message: "Adeudos por Boleta recuperados",
@@ -145,7 +145,7 @@ module.exports = {
     try {
       const boleta = req.query.boleta;
       console.log(boleta);
-      const data = await User.DebtByBoletaNoAdeudo(boleta);
+      const data = await Debt.DebtByBoletaNoAdeudo(boleta);
       return res.status(201).json({
         success: true,
         message: "No Adeudos por Boleta recuperados",
@@ -164,7 +164,7 @@ module.exports = {
     try {
       const id = req.query.idLab;
       console.log(id);
-      const data = await User.Debt(id);
+      const data = await Debt.Debt(id);
       return res.status(201).json({
         success: true,
         message: "Adeudos por laboratorios recuperados",
@@ -183,7 +183,7 @@ module.exports = {
       const boleta = req.query.boleta;
       const idequipo = req.query.idequipo;
 
-      const data = await User.UpdateEstatus(boleta, idequipo);
+      const data = await Debt.UpdateEstatus(boleta, idequipo);
       return res.status(201).json({
         success: true,
         message: "Adeudos editados correctamente",
