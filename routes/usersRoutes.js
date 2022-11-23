@@ -20,8 +20,7 @@ module.exports = (app) => {
   //GET disponibilidad equipos
   app.get("/api/users/getDisponibilidad", UsersController.getDisponibilidad);
 
-  //GET para traer equipamiento x laboratorio
-  app.get("/api/users/getItemsLab", UsersController.findEquipLabById);
+  //getItemsLab
 
   //GET para todos los laboratorios
   app.get("/api/users/AllLab", UsersController.AllLab);

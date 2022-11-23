@@ -35,7 +35,7 @@ module.exports = {
       return res.status(201).json({
         success: true,
         data: data,
-        
+
         message: "Adeudo agregado correctamente",
       });
     } catch (error) {
@@ -74,6 +74,116 @@ module.exports = {
         Estatus_adeudo,
         Visualizacion_adeudo
       );
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos editados correctamente",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener editar adeudos",
+      });
+    }
+  },
+  async DebtByLab(req, res, next) {
+    try {
+      const id = req.query.idLab;
+      const data = await User.DebtByLab(id);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos por laboratorios recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos por laboratorios",
+      });
+    }
+  },
+
+  async AllDebts(req, res, next) {
+    try {
+      const data = await User.AllDebts();
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener adeudos",
+      });
+    }
+  },
+
+  async DebtByBoletaAdeudo(req, res, next) {
+    try {
+      const boleta = req.query.boleta;
+      console.log(boleta);
+      const data = await User.DebtByBoletaAdeudo(boleta);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos por Boleta recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener adeudo por Boleta",
+      });
+    }
+  },
+
+  async DebtByBoletaNoAdeudo(req, res, next) {
+    try {
+      const boleta = req.query.boleta;
+      console.log(boleta);
+      const data = await User.DebtByBoletaNoAdeudo(boleta);
+      return res.status(201).json({
+        success: true,
+        message: "No Adeudos por Boleta recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener no adeudo por Boleta",
+      });
+    }
+  },
+
+  async Debt(req, res, next) {
+    try {
+      const id = req.query.idLab;
+      console.log(id);
+      const data = await User.Debt(id);
+      return res.status(201).json({
+        success: true,
+        message: "Adeudos por laboratorios recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos por laboratorios",
+      });
+    }
+  },
+  async UpdateEstatus(req, res, next) {
+    try {
+      const boleta = req.query.boleta;
+      const idequipo = req.query.idequipo;
+
+      const data = await User.UpdateEstatus(boleta, idequipo);
       return res.status(201).json({
         success: true,
         message: "Adeudos editados correctamente",

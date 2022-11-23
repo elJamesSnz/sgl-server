@@ -173,4 +173,54 @@ module.exports = {
       });
     }
   },
+  async getEstadosEquipo(req, res, next) {
+    try {
+      const data = await Equip.getEstadosEquipo();
+      return res.status(201).json({
+        success: true,
+        message: "Estados de equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error en funcionalidades: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener estados de equipos",
+      });
+    }
+  },
+  async getAllEquipo(req, res, next) {
+    try {
+      const data = await Equip.getAllEquipo();
+      console.log(data);
+      return res.status(201).json({
+        success: true,
+        message: "Equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos ",
+      });
+    }
+  },
+  async getEquipsByLab(req, res, next) {
+    try {
+      const id = req.query.idLab;
+      const data = await Equip.getAllEquipoByLabs(id);
+      return res.status(201).json({
+        success: true,
+        message: "Laboratorio y equipos recuperados",
+        data: data,
+      });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Error al obtener equipos de laboratorio por ID",
+      });
+    }
+  },
 };
