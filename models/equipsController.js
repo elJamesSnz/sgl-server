@@ -1,5 +1,5 @@
 //CONTROLADORT EQUIP
-const Equip = require("../models/equip");
+const Equip = require("./equip");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 
