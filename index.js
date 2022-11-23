@@ -41,7 +41,7 @@ app.set("port", port);
 hellos(app);
 //api routes
 users(app);
-equips(app);
+//equips(app);
 debts(app);
 
 const server = http.createServer(app);
